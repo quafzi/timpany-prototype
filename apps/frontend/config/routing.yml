@@ -1,5 +1,8 @@
 # Special case for the home page
 
+default:
+  url:   /admin/:module/:action/*
+
 homepage:
   url:  /
   param: { module: a, action: show, slug: / }
