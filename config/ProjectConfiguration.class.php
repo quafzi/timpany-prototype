@@ -7,6 +7,12 @@ class ProjectConfiguration extends sfProjectConfiguration
 {
   public function setup()
   {
+    // We do this here because we chose to put Zend in lib/vendor/Zend.
+    // If it is installed system-wide then this isn't necessary to
+    // enable Zend Search
+    set_include_path(sfConfig::get('sf_lib_dir') . '/vendor' . PATH_SEPARATOR . get_include_path());
+    // for compatibility / remove and enable only the plugins you want
+
     $this->enablePlugins('sfDoctrinePlugin');
     $this->enablePlugins('sfJqueryReloadedPlugin');
     $this->enablePlugins('sfDoctrineGuardPlugin');
