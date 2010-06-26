@@ -1,0 +1,62 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:            aEvent
+    column:                 slug
+    theme:                  aBlogAdmin
+    non_verbose_templates:  true
+    with_show:              false
+    singular:               ~
+    plural:                 ~
+    route_prefix:           a_event_admin
+    with_doctrine_route:    true
+    
+    config:
+      fields:
+        author_id:  { label: created by }
+        _editors_list: { label: edited by }
+        _categories_list: { label: categories }
+        tags_list: { label: tagged }
+
+      list:
+        table_method:   filterByEditable        
+        title:    "Event Admin"
+        display:  [ _title, _author_id, _editors_list, _tags_list, _categories_list, status, _start_date ]
+        sort:     [start_date, desc]
+        fields:
+          author_id:
+            label:  Author
+          editors_list:
+            label:  Editors
+            type:   ManyKey
+          tags_list:
+            label:  Tags
+          categories_list:
+            label:  Categories
+            type:   ManyKey
+          start_date:
+            label:  Date
+        actions:
+          new:
+            label: New Event
+            action: new
+            params:
+              class: a-btn big icon a-add
+          # categories:
+          #   label: Categories
+          #   action: categories
+          #   params:
+          #     class: a-btn big alt
+          #   credentials: admin
+        batch_actions:
+          delete:
+            label: Delete
+          publish:
+            label: Publish
+          unpublish:
+            label: Unpublish
+
+      filter:
+        fields:   [ author_id, editors_list, categories_list, status, _tags_list ]
+        display:  [ author_id, editors_list, categories_list, status, _tags_list ]
+        

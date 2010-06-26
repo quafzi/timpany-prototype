@@ -1,0 +1,16 @@
+all:        
+  aBlog:
+    templates: 
+      singleColumnTemplate:
+        name: Single Column
+        areas: ['blog-body']
+      twoColumnTemplate:
+        name: Two Column
+        areas: ['blog-body', 'blog-sidebar']
+    comments: false
+    # add_this: punkave     # Username for AddThis -- http://addthis.com
+  aEvent:
+    templates:
+      singleColumnTemplate:
+        name: Single Column
+        areas: ['blog-body']

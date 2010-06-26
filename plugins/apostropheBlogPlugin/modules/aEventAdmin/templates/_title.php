@@ -1,0 +1,1 @@
+<?php echo link_to($a_event->title, 'a_event_admin_edit', $a_event) ?>

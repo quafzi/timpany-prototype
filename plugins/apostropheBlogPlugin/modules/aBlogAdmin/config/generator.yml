@@ -1,0 +1,62 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:            aBlogPost
+    column:                 slug
+    theme:                  aBlogAdmin
+    non_verbose_templates:  true
+    with_show:              false
+    singular:               ~
+    plural:                 ~
+    route_prefix:           a_blog_admin
+    with_doctrine_route:    true
+
+    
+    config:
+      fields:
+        author_id:  { label: created by }
+        editors_list: { label: edited by }
+        categories_list: { label: categorized }
+        tags_list: { label: tagged }       
+      
+      list:
+        table_method:   filterByEditable
+        title:    "Blog Admin"
+        display:  [ _title, _author_id, _editors_list, _tags_list, _categories_list, status, published_at ]
+        sort:     [published_at, desc]
+        fields:
+          author_id:
+            label:  Author
+          editors_list:
+            label:  Editors
+            type:   ManyKey
+          tags_list:
+            label:  Tags
+          categories_list:
+            label:  Categories
+            type:   ManyKey
+          published_at:
+            label:  Date
+        actions:
+          new:
+            label: New Post
+            action: new
+            params:
+              class: a-btn big icon a-add
+          # categories:
+          #   label: Categories
+          #   action: categories
+          #   params:
+          #     class: a-btn big alt
+          #   credentials: admin
+        batch_actions:
+          delete:
+            label: Delete
+          publish:
+            label: Publish
+          unpublish:
+            label: Unpublish
+                
+      filter:
+        fields:   [ author_id, editors_list, categories_list, status, _tags_list ]
+        display:  [ author_id, editors_list, categories_list, status, _tags_list ]

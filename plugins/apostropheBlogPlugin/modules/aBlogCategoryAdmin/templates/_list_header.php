@@ -1,0 +1,1 @@
+<?php echo link_to('Edit Posts', '@a_blog_admin', array('class' => 'a-btn icon a-edit', )) ?>

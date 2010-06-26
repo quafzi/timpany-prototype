@@ -1,16 +1,15 @@
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/10-Routing
+# Special case for the home page
 
-# default rules
 homepage:
-  url:   /
-  param: { module: default, action: index }
+  url:  /
+  param: { module: a, action: show, slug: / }
 
-# generic rules
-# please, remove them by adding more specific rules
-default_index:
-  url:   /:module
-  param: { action: index }
+# The non-CMS actions of your project, and the admin actions of the CMS
+a_action:
+  url:   /cms/:module/:action
 
-default:
-  url:   /:module/:action/*
+# Must be the LAST rule
+a_page:
+  url:   /:slug
+  param: { module: a, action: show }
+  requirements: { slug: .* }

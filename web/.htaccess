@@ -3,6 +3,18 @@ Options +FollowSymLinks +ExecCGI
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  ###### BEGIN special handling for the media module's cached scaled images
+  # If it exists, just deliver it
+  RewriteCond %{REQUEST_URI} ^/uploads/media_items/.+$
+  RewriteCond %{REQUEST_FILENAME} -f
+  RewriteRule .* - [L]
+  # If it doesn't exist, render it via the front end controller
+  RewriteCond %{REQUEST_URI} ^/uploads/media_items/.+$
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.*)$ index.php [QSA,L]
+  ###### END special handling for the media module's cached scaled images
+
+
   # uncomment the following line, if you are having trouble
   # getting no_script_name to work
   #RewriteBase /

@@ -28,8 +28,52 @@ all:
     csrf_secret:            394683a9f42f6471992a22a36a62b845f14e999d
 
     # Output escaping settings
-    escaping_strategy:      true
+    escaping_strategy:      false
     escaping_method:        ESC_SPECIALCHARS
 
     # Enable the database manager
     use_database:           true
+    i18n: 		    true
+    default_culture:        de        # Default user culture
+
+    rich_text_fck_js_dir:   apostrophePlugin/js/fckeditor
+    
+    enabled_modules:
+      - a
+      - aSync
+      - aNavigation
+      - aMedia
+      - aMediaBackend
+      - aRichTextSlot
+      - aTextSlot
+      - aRawHTMLSlot
+      - aSlideshowSlot
+      - aVideoSlot
+      - aImageSlot
+      - aButtonSlot
+      - aPDFSlot
+      - aFeedSlot
+      - sfGuardAuth
+      - aUserAdmin
+      - aGroupAdmin
+      - aPermissionAdmin
+      - sfGuardPermission
+      - taggableComplete
+      - aNavigation
+      - default
+      - aAdmin
+      - aBlog
+      - aBlogAdmin
+      - aBlogCategoryAdmin
+      - aBlogSingleSlot
+      - aBlogSlot
+      - aEvent
+      - aEventAdmin
+      - aEventSingleSlot
+      - aEventSlot
+
+    error_404_module:       a         # To be called when a 404 error is raised
+    error_404_action:       error404  # Or when the requested URL doesn't match any route
+
+    login_module:           sfGuardAuth   # To be called when a non-authenticated user
+    login_action:           signin     # Tries to access a secure page

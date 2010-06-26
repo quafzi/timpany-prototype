@@ -1,0 +1,415 @@
+#################
+# aBlog routes #
+#################
+
+a_blog_post:
+  url:     /:year/:month/:day/:slug
+  param:   { module: aBlog, action: show }
+  options: { model: aBlogPost, type: object }
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  class:   aDoctrineRoute
+
+a_blog_cat_tag_year_month_day:
+  url:   /:cat/tag/:tag/:year/:month/:day
+  param: { module: aBlog, action: index }
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  class: aRoute
+
+a_blog_cat_tag_year_month:
+  url:   /:cat/tag/:tag/:year/:month
+  param: { module: aBlog, action: index }
+  requirements: { year: '\d{4}', month: '\d|\d{2}' }
+  options: 
+    filters: [ filterByYMD, filterByCategory, filterByTag ] 
+  class: aRoute
+
+a_blog_cat_tag_year:
+  url:   /:cat/tag/:tag/:year
+  param: { module: aBlog, action: index }
+  requirements: { year: '\d{4}' }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  class: aRoute
+
+a_blog_tag_year_month_day:
+  url:   /tag/:tag/:year/:month/:day
+  param: { module: aBlog, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  class: aRoute
+
+a_blog_tag_year_month:
+  url:   /tag/:tag/:year/:month
+  param: { module: aBlog, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}', month: '\d|\d{2}' }
+  class: aRoute
+
+a_blog_tag_year:
+  url:   /tag/:tag/:year
+  param: { module: aBlog, action: index }
+  options: 
+    filters: [ filterByYMD ] 
+  requirements: { year: '\d{4}' }
+  class: aRoute
+
+a_blog_cat_year_month_day:
+  url:   /:cat/:year/:month/:day
+  param: { module: aBlog, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  class: aRoute
+
+a_blog_cat_year_month:
+  url:   /:cat/:year/:month
+  param: { module: aBlog, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}', month: '\d|\d{2}' }
+  class: aRoute
+
+a_blog_cat_year:
+  url:   /:cat/:year
+  param: { module: aBlog, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}' }
+  class: aRoute
+  
+a_blog_year_month_day:
+  url:   /:year/:month/:day
+  options: 
+    filters: [ filterByYMD ] 
+  param: { module: aBlog, action: index }
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  class: aRoute
+
+a_blog_year_month:
+  url:   /:year/:month
+  param: { module: aBlog, action: index }
+  options: 
+    filters: [ filterByYMD ]
+  requirements: { year: '\d{4}', month: '\d|\d{2}' }
+  class: aRoute
+
+a_blog_year:
+  url:   /:year
+  options: 
+    filters: [ filterByYMD ]
+  param: { module: aBlog, action: index }
+  requirements: { year: '\d{4}' }
+  class: aRoute
+
+a_blog_cat_tag:
+  url:   /:cat/tag/:tag
+  param: { module: aBlog, action: index }
+  options: 
+    filters: [ filterByCategory ] 
+  class: aRoute
+
+a_blog_tag:
+  url:   /tag/:tag
+  param: { module: aBlog, action: index }
+  options: 
+    filters: [ filterByTag ] 
+  class: aRoute
+
+a_blog_cat:
+  url:   /:cat
+  options: 
+    filters: [ filterByCategory ] 
+  param: { module: aBlog, action: index }
+  class: aRoute
+
+a_blog:
+  url:   
+  param: { module: aBlog, action: index }
+  class: aRoute
+
+a_blog_today:
+  url:   
+  param: { module: aBlog, action: today }
+  class: aRoute
+
+a_blog_search_redirect:
+  url: /aBlog/:id
+  param: { module: aBlogAdmin, action: redirect }
+  options: { model: aBlogPost, type: object }
+  class: sfDoctrineRoute
+ 
+#################
+# aEvent routes #
+#################
+
+a_event_post:
+  url:     /:year/:month/:day/:slug
+  param:   { module: aEvent, action: show }
+  options: { model: aEvent, type: object }
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  class:   aDoctrineRoute
+
+a_event_cat_tag_year_month_day:
+  url:   /:cat/tag/:tag/:year/:month/:day
+  param: { module: aEvent, action: index }
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  options:
+    filters: [ filterByYMD, filterByCategory, filterByTag ] 
+  class: aRoute
+
+a_event_cat_tag_year_month:
+  url:   /:cat/tag/:tag/:year/:month
+  param: { module: aEvent, action: index }
+  requirements: { year: '\d{4}', month: '\d|\d{2}' }
+  options: 
+    filters: [ filterByYMD, filterByCategory, filterByTag ] 
+  class: aRoute
+
+a_event_cat_tag_year:
+  url:   /:cat/tag/:tag/:year
+  param: { module: aEvent, action: index }
+  requirements: { year: '\d{4}' }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  class: aRoute
+
+a_event_tag_year_month_day:
+  url:   /tag/:tag/:year/:month/:day
+  param: { module: aEvent, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  class: aRoute
+
+a_event_tag_year_month:
+  url:   /tag/:tag/:year/:month
+  param: { module: aEvent, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}', month: '\d|\d{2}' }
+  class: aRoute
+
+a_event_tag_year:
+  url:   /tag/:tag/:year
+  param: { module: aEvent, action: index }
+  options: 
+    filters: [ filterByYMD ] 
+  requirements: { year: '\d{4}' }
+  class: aRoute
+
+a_event_cat_year_month_day:
+  url:   /:cat/:year/:month/:day
+  param: { module: aEvent, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  class: aRoute
+
+a_event_cat_year_month:
+  url:   /:cat/:year/:month
+  param: { module: aEvent, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}', month: '\d|\d{2}' }
+  class: aRoute
+
+a_event_cat_year:
+  url:   /:cat/:year
+  param: { module: aEvent, action: index }
+  options: 
+    filters: [ filterByYMD, filterByCategory ] 
+  requirements: { year: '\d{4}' }
+  class: aRoute
+  
+a_event_year_month_day:
+  url:   /:year/:month/:day
+  options: 
+    filters: [ filterByYMD ] 
+  param: { module: aEvent, action: index }
+  requirements: { year: '\d{4}', month: '\d|\d{2}', day: '\d|\d{2}' }
+  class: aRoute
+
+a_event_year_month:
+  url:   /:year/:month
+  param: { module: aEvent, action: index }
+  options: 
+    filters: [ filterByYMD ]
+  requirements: { year: '\d{4}', month: '\d|\d{2}' }
+  class: aRoute
+
+a_event_year:
+  url:   /:year
+  options: 
+    filters: [ filterByYMD ]
+  param: { module: aEvent, action: index }
+  requirements: { year: '\d{4}' }
+  class: aRoute
+
+a_event_cat_tag:
+  url:   /:cat/tag/:tag
+  param: { module: aEvent, action: index }
+  options: 
+    filters: [ filterByCategory ] 
+  class: aRoute
+
+a_event_tag:
+  url:   /tag/:tag
+  param: { module: aEvent, action: index }
+  options: 
+    filters: [ filterByTag ] 
+  class: aRoute
+
+a_event_cat:
+  url:   /:cat
+  options: 
+    filters: [ filterByCategory ] 
+  param: { module: aEvent, action: index }
+  class: aRoute
+
+a_event:
+  url:   
+  param: { module: aEvent, action: index }
+  class: aRoute
+
+a_event_today:
+  url:   
+  param: { module: aEvent, action: today }
+  class: aRoute
+
+a_event_search_redirect:
+  url: /aEvent/:id
+  param: { module: aEventAdmin, action: redirect }
+  options: { model: aEvent, type: object }
+  class: sfDoctrineRoute
+  
+  
+################
+# blog admin routes #
+################
+
+a_blog_admin:
+  class: sfDoctrineRouteCollection
+  options:
+    model:               aBlogPost
+    module:              aBlogAdmin
+    prefix_path:         admin/blog
+    column:              slug
+    with_wildcard_routes: true
+    with_show:            false
+    collection_actions:
+      categories: get
+
+a_blog_admin_autocomplete:
+  url:   /admin/blog/autocomplete
+  param: { module: aBlogAdmin, action: autocomplete }
+  class: sfRoute
+
+a_blog_admin_edit:
+  url:  /admin/blog/:id/edit/:slug
+  options: { model: aBlogPost, type: object, method: findOne }
+  param: { module: aBlogAdmin, action: edit }
+  class: sfDoctrineRoute
+  requirements:
+    sf_method: GET
+    id: \d+
+
+a_blog_admin_update:
+  url: /admin/blog/:id/update/:slug
+  options: { model: aBlogPost, type: object, method: findOne }
+  param: { module: aBlogAdmin, action: update }
+  class: sfDoctrineRoute
+  requirements:
+    sf_method: PUT
+    id: \d+
+
+a_blog_admin_delete:
+  url: /admin/blog/:id/delete/:slug
+  options: { model: aBlogPost, type: object, method: findOne }
+  param: { module: aBlogAdmin, action: delete }
+  class: sfDoctrineRoute
+  requirements:
+    sf_method: delete
+    id: \d+
+      
+a_blog_admin_removeFilter:
+  url:   /admin/blog/remove_filter/:name/:value
+  param: { module: aBlogAdmin, action: removeFilter }
+  class: sfRoute
+  
+a_blog_admin_addFilter:
+  url:   /admin/blog/add_filter/:name/:value
+  param: { module: aBlogAdmin, action: addFilter }
+  class: sfRoute
+      
+a_blog_category_admin:
+  class: sfDoctrineRouteCollection
+  options:
+    model:               aBlogCategory
+    module:              aBlogCategoryAdmin
+    prefix_path:         admin/blog_categories
+    column:              id
+    with_wildcard_routes: true
+    collection_actions:
+      posts: get
+      events: get
+      
+      
+################
+# event admin routes #
+################
+
+a_event_admin:
+  class: sfDoctrineRouteCollection
+  options:
+    model:               aEvent
+    module:              aEventAdmin
+    prefix_path:         admin/event
+    column:              slug
+    with_wildcard_routes: true
+    with_show:            false
+    collection_actions:
+      categories: get
+
+a_event_admin_autocomplete:
+  url:   /admin/event/autocomplete
+  param: { module: aEventAdmin, action: autocomplete }
+  class: sfRoute
+
+a_event_admin_edit:
+  url:  /admin/event/:id/edit/:slug
+  options: { model: aEvent, type: object, method: findOne }
+  param: { module: aEventAdmin, action: edit }
+  class: sfDoctrineRoute
+  requirements:
+    sf_method: GET
+    id: \d+
+
+a_event_admin_update:
+  url: /admin/event/:id/update/:slug
+  options: { model: aEvent, type: object, method: findOne }
+  param: { module: aEventAdmin, action: update }
+  class: sfDoctrineRoute
+  requirements:
+    sf_method: PUT
+    id: \d+
+
+a_event_admin_delete:
+  url: /admin/event/:id/delete/:slug
+  options: { model: aEvent, type: object, method: findOne }
+  param: { module: aEventAdmin, action: delete }
+  class: sfDoctrineRoute
+  requirements:
+    sf_method: delete
+    id: \d+
+
+a_event_admin_removeFilter:
+  url:   /admin/event/remove_filter/:name/:value
+  param: { module: aEventAdmin, action: removeFilter }
+  class: sfRoute
+
+a_event_admin_addFilter:
+  url:   /admin/event/add_filter/:name/:value
+  param: { module: aEventAdmin, action: addFilter }
+  class: sfRoute

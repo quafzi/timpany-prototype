@@ -1,0 +1,55 @@
+generator:
+  class: sfDoctrineGenerator
+  param:
+    model_class:           aBlogCategory
+    theme:                 aBlogAdmin
+    non_verbose_templates: true
+    with_show:             false
+    singular:              ~
+    plural:                ~
+    route_prefix:          a_blog_category_admin
+    with_doctrine_route:   1
+    
+    config:
+      
+      list:
+        title: Categories Admin
+        display: [ _name, numBlogPosts, numEvents, _users ]
+        object_actions: []
+        fields:
+          name:
+            label: Category
+        actions:
+          new:
+            label: New Category
+            action: new
+            params:
+              class: a-btn big icon a-add alt
+          posts:
+            label: Blog Admin
+            action: posts
+            params:
+              class: a-btn a-blog-back-btn alt #These button actions need UI
+          events:
+            label: Event Admin
+            action: events
+            params:
+              class: a-btn a-blog-back-btn alt #These button actions need UI
+
+      
+      form:
+        fields:   [ name, users_list, posts, events ]
+        display:  [ name, users_list, posts, events ]
+        
+      filter:
+        fields:  [  users_list ]
+        display: [  users_list ]
+        
+      fields:
+        numBlogPosts: { label: Number of Posts }
+        numEvents: { label: Number of Events }
+        users: { label: Active Users }
+      
+      edit:
+        title: Edit Category
+        

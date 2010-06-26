@@ -1,5 +1,82 @@
-# You can find more information about this file on the symfony website:
-# http://www.symfony-project.org/reference/1_4/en/11-App
-
-# default values
-#all:
+all:
+  a:
+    # If true, there will be a language switcher next to the login/logout button
+    i18n_switch: false
+    i18n_languages: [de,en]
+    # By default new slots in an area go to the top, you can change that here
+    # new_slots_top: false
+    routes_register: false 
+    default_on: true
+    # Make sure you specify the candidate and sufficient groups for both managing
+    # (that is, deleting and creating) and editing pages. It's typical to use the same
+    # group of candidates for editors and managers, because you can still assign actual
+    # managing and editing privileges for any individual page and its descendants via the
+    # page settings dialog even if the pool of candidates is all one group
+    manage_candidate_group: editor
+    manage_sufficient_group: admin
+    edit_candidate_group: editor
+    edit_sufficient_group: admin
+    
+    slot_types:
+      aImage: Image
+      aSlideshow: Slideshow
+      aVideo: Video
+    # Change to true if you'd like the home page to also appear as a tab
+    home_as_tab: false
+    # Uncomment and change if your media plugin runs on a separate site
+    # media_site: "http://www.mymediasite.com/"
+    # You should change this both here and below
+    media_apikey: 'dummy'
+    # Templates for pages, with their friendly names
+    templates:
+      home: Home Page
+      default: Default Page
+      twoColumn: Two Column Page
+    # Use the provided stylesheet (recommended)
+    use_bundled_stylesheet: true
+    engines:
+      '': 'Template-Based'
+      aMedia: Media
+      aBlog: Blog
+      aEvent: Event
+  # Media plugin related options
+  aMedia:
+    apikeys:
+      # Must match the API key above
+      - 'dummy'
+    # Recommended
+    apipublic: false
+    admin_credential: media_admin
+    upload_credential: media_upload
+    use_bundled_layout: false
+    embed_codes: true 
+  # Model classes to be indexed by search engine
+  aToolkit:
+    indexes:
+      - 'aPage'
+      - 'aMediaItem'
+      
+      
+  # options for sfSyncContentPlugin, used to sync the database and also
+  # data files such as the media plugin's images and the search indexes. 
+  # You can extend this if you have more data file folders
+  
+  sfSyncContent:
+    # The database is content, of course, but what else?
+    content:
+      # Almost always
+      - "web/uploads"
+      # If you use Apostrophe
+      - "data/a_writable"
+      
+  aimageconverter:
+    # if netpbm is not in PHP's PATH when system() is invoked, specify its location here
+    # (at the command line, type 'where giftopnm' to find out what folder netpbm is in;
+    # if you do not have it you must install the netpbm utilities on your system)
+    # path: /opt/local/bin # typical netpbm location for macports
+    
+  sf_guard_plugin:
+    # Subclasses sfGuardFormSignin and sets the apostrophe I18N catalog
+    # so we can include the login form with our translations.
+    # Otherwise we don't change it at all
+    signin_form: aFormSignin

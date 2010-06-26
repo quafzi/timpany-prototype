@@ -1,0 +1,246 @@
+options:
+  type: INNODB
+
+aBlogItem:
+  actAs:
+    Timestampable: ~
+    Taggable: ~
+    Sluggable:
+      fields: [ title ]
+      builder: [ aTools, slugify ]
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    author_id:
+      type: integer(4)
+    page_id:
+      type: integer(4)
+    title:
+      type: string(255)
+      notnull: true
+    slug_saved:
+      type: boolean
+      default: false
+    excerpt:
+      type: string
+    status:
+      type: enum
+      values: [draft, pending review, published ]
+      notnull: true
+      default: draft
+    allow_comments:
+      type: boolean
+      notnull: true
+      default: 0
+    template:
+      type: string(255)
+      default: singleColumnTemplate
+    published_at:
+      type: timestamp
+  relations:
+    Author:
+      class: sfGuardUser
+      foreignAlias: BlogAuthorItems
+      local: author_id
+      foreign: id
+      onDelete: SET NULL
+    Editors:
+      foreignAlias: BlogEditorItems
+      class: sfGuardUser
+      refClass: aBlogEditor
+      local: blog_item_id
+      foreign: user_id
+    Page:
+      class: aPage
+      local: page_id
+      foreign: id
+      onDelete: CASCADE
+    Categories:
+      foreignAlias: BlogItems
+      class: aBlogCategory
+      refClass: aBlogItemCategory
+      local: blog_item_id
+      foreign: blog_category_id
+
+      
+      
+aBlogEditor:
+  columns:
+    blog_item_id: 
+      type: integer(4)
+      primary: true
+    user_id:
+      type: integer(4)
+      primary: true
+  relations:
+    BlogItem:
+      foreignAlias: BlogItemEditors
+      class: aBlogItem
+      local: blog_item_id
+      onDelete: CASCADE
+    Editor:
+      foreignAlias: BlogItemEditors
+      class: sfGuardUser
+      local: user_id
+      onDelete: CASCADE
+      
+aBlogItemCategory:
+  columns:
+    blog_item_id:
+      type: integer(4)
+      primary: true
+    blog_category_id:
+      type: integer(4)
+      primary: true
+  relations:
+    BlogItem:
+      foreignAlias: BlogItemCategories
+      class: aBlogItem
+      local: blog_item_id
+      onDelete: CASCADE
+    BlogCategory:
+      foreignAlias: BlogItemCategories
+      class: aBlogCategory
+      local: blog_category_id
+      onDelete: CASCADE
+      
+aBlogCategory:
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    name:
+      type: string(255)
+      unique: true
+    description:
+      type: string
+    posts:
+      type: boolean
+      default: false
+    events:
+      type: boolean
+      default: false
+  relations:
+    Users:
+      foreignAlias: BlogCategories
+      class: sfGuardUser
+      refClass: aBlogCategoryUser
+      local: blog_category_id
+      foreign: user_id
+    BlogItems:
+      foreignAlias: BlogCategories
+      class: aBlogItem
+      refClass: aBlogItemCategory
+      local: blog_category_id
+      foreign: blog_item_id
+    Pages:
+      class: aPage
+      local: blog_category_id
+      foreign: page_id
+      foreignAlias: BlogCategories
+      refClass: aBlogPageCategory
+      
+aBlogPageCategory:
+  tableName: a_blog_page_category
+  options:
+    symfony:
+      form:   false
+      filter: false
+  columns:
+    page_id:
+      type: integer(4)
+      primary: true
+    blog_category_id:
+      type: integer(4)
+      primary: true
+  relations:
+    aBlogCategory:
+      local: blog_category_id
+      onDelete: CASCADE
+    aPage:
+      local: page_id
+      onDelete: CASCADE
+          
+aBlogCategoryUser:
+  columns:
+    blog_category_id:
+      type: integer(4)
+      primary: true
+    user_id:
+      type: integer(4)
+      primary: true
+  relations:
+    BlogCategory:
+      foreignAlias: BlogCategoryUsers
+      class: aBlogCategory
+      local: blog_category_id
+      onDelete: CASCADE
+    User:
+      foreignAlias: BlogCategoryUsers
+      class: sfGuardUser
+      local: user_id
+      onDelete: CASCADE
+    
+aBlogPost:
+  inheritance:
+    extends: aBlogItem
+    type: column_aggregation
+    keyField: type
+    keyValue: 'post'    
+      
+aBlogSlot:
+  options:
+    symfony:
+      form:   false
+      filter: false
+  inheritance:
+    extends: aSlot
+    type: column_aggregation
+    keyField: type
+    keyValue: 'aBlog'
+      
+aBlogSingleSlot:
+  options:
+    symfony:
+      form:   false
+      filter: false
+  inheritance:
+    extends: aSlot
+    type: column_aggregation
+    keyField: type
+    keyValue: 'aBlogSingle'
+    
+aEvent:
+  inheritance:
+    extends: aBlogItem
+    type: column_aggregation
+    keyField: type
+    keyValue: 'event'
+  columns:
+    start_date: timestamp
+    end_date: timestamp
+    
+aEventSlot:
+  options:
+    symfony:
+      form:   false
+      filter: false
+  inheritance:
+    extends: aSlot
+    type: column_aggregation
+    keyField: type
+    keyValue: 'aEvent'
+      
+aEventSingleSlot:
+  options:
+    symfony:
+      form:   false
+      filter: false
+  inheritance:
+    extends: aSlot
+    type: column_aggregation
+    keyField: type
+    keyValue: 'aEventSingle'
