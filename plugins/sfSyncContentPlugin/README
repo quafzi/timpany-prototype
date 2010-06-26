@@ -1,0 +1,161 @@
+= sfSyncContentPlugin =
+
+Symfony makes it easy to sync code between your development, staging and
+production servers. But what about content? Deploying content to other
+servers typically does not happen on the same schedule as the deployment
+of code. And Symfony's rsync support doesn't address the issue of
+copying databases, nor is it a good fit for data folders since they are usually not copied at the same time or in the same direction as code folders.
+
+Why would you sync data? Here at P'unk Avenue we sync data in at least four situations:
+
+1. Early in development, to push content up from a developer's local copy of a site to the staging site so coworkers and clients can see it.
+
+    ./symfony project:sync-content frontend dev to staging@staging
+
+2. Later in development, to pull content down from the staging server to reproduce bugs on a developer's computer.
+
+    ./symfony project:sync-content frontend dev from staging@staging
+
+3. At deployment time, to pull content from the staging server to the production server (this command would be run on the production server).
+
+    ./symfony project:sync-content frontend prod from staging@staging
+
+4. After deployment, to pull content back down from the production server to staging servers and development workstations in order to reproduce bugs and validate new features against real content without disturbing the production site.
+
+    ./symfony project:sync-content frontend dev from prod@production
+
+sfSyncContentPlugin can be used by itself and is also frequently used in conjunction with our [Apostrophe Content Management System](http://www.apostrophenow.com/). The philosophy of Apostrophe is that editing should be done "in context" whenever possible.
+
+== Requirements ==
+
+Your project must use MySQL. This is because the code relies heavily
+on the mysqldump and mysql commands. 
+
+Your hosts must have the mysqldump and mysql commands in the PATH.
+
+If your system has those commands, but under other names
+(like mysqldump5 and mysql5), you must add symbolic links or aliases
+so that they can be found under their usual names.
+
+Both the source and the destination should be running some flavor
+of Unix (MacOS X is fine, but watch out for mysql and mysqldump
+not being in the command line path or having alternate names, you may have to fix that; Linux,
+of course, works great).
+
+== Instructions ==
+
+With this plugin installed, you can synchronize your local database
+with the remote database on the staging server with the following command:
+
+    symfony project:sync-content frontend dev from prod@staging
+
+This downloads the database FROM the staging server, using the
+"prod" environment settings, and writes its contents to the database 
+associated with the local Symfony project using the "dev" environment
+settings. We accept no responsibility for the consequences
+of failure to understand the words "FROM" and "TO" or use the
+correct environment settings.
+
+You can also move your data in the opposite direction:
+
+    symfony project:sync-content frontend dev to prod@staging
+
+This copies the database from the local project (using dev
+settings) TO the staging site (using prod settings).
+
+Specifying a particular database connection is no longer supported as this was
+never much tested here. However, we soon
+intend to add support for automatically transferring all of the databases rather than
+just the default one.
+
+You can also copy to and from production servers, etc., etc.- if it's listed
+in config/properties.ini, you can sync content with it:
+
+    symfony project:sync-content frontend dev to prod@production
+
+You can also specify files and directories to be copied over via
+rsync at the same time. Here's a snippet of our apps/frontend/config/app.yml:
+
+    all:
+      sfSyncContent:
+        # The database is content, of course, but what else?
+        content:
+          # Almost always
+          - "web/uploads"
+          # If you use sfLucenePlugin
+          - "data/index"
+          # If you use P'unk Avenue stuff
+          - "data/pk_writable"
+          
+== About Those Pesky Password Prompts ==
+
+This task will ask for your ssh password once to transfer the database
+(a big improvement over earlier versions of the plugin), and once for each
+entry in the content: section of your app.yml file. That's not a bug.
+However, you can make it go away by following (and understanding)
+this HOWTO:
+
+http://www.linuxproblem.org/art_9.html
+
+Obviously this is a security risk in the event the laptop you are
+syncing from should be stolen. You must IMMEDIATELY remove
+the entry for your machine from authorized_keys on the remote
+server in that situation.
+
+== Changelog ==
+
+* Version 0.9.1 corrects a bug in version 0.9 which caused the default environment to be used
+rather than the specified environment on the local end of the connection. The correct environment
+was used on the remote end. This is a significant bug fix and you should upgrade immediately if you
+are using version 0.9.
+
+Also, the code has been refactored to reuse the mysql-load and mysql-dump tasks locally as well as
+remotely, removing redundant code and the potential for problems like the bug fix mentioned above.
+
+* Version 0.9 has been rewritten to use
+sfDatabaseManager and remote dumping and loading tasks to eliminate
+extra ssh connections and allow the use of any databases.yml file
+without modification (however there is still no support for
+multiple databases or non-MySQL databases). Version 0.9 removes
+the largely untested halfhearted support for specifying a particular
+connection. If we're going to support multiple connections it should
+probably be by syncing all of them or just the default based on
+a parameter.
+
+* Version 0.3 (not yet packaged) is the first Symfony 1.2, 
+Doctrine-and-Propel version, with a shiny new name.
+
+* Version 0.2 changes the syntax a bit to require an environment
+name for the remote Symfony site as well. This adds flexibility 
+and helps to prevent the accidental use of inappropriate database settings.
+
+== Annoyances ==
+
+"Why do I have to specify an application?" This is a feature. The content settings live in 
+app.yml. Pass frontend or whatever your main application is.
+
+"Why do I have to specify an environment?" This one is a feature too:
+different sections of app.yml can come into play depending on the environment.
+Even more important, databases.yml can also have separate dev and prod
+environment sections accessing entirely different databases, one reason
+why I now require that you explicitly specify the environment for the
+remote site as well.
+
+== Disclaimer ==
+
+This is a power tool, for grownups only. We accept NO responsibility for the 
+consequences of using this tool. If you are not backing up your databases, and
+you fail to understand the meaning of "from" or "to," don't come crying 
+to us. Seriously.
+
+That said: it's very useful. Enjoy. (:
+
+== Credits ==
+
+P'unk Avenue LLC, www.punkave.com
+
+Released under the MIT license. See the LICENSE file for details.
+
+== Contact ==
+
+Tom Boutell, tom@punkave.com

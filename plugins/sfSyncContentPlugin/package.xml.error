@@ -1,0 +1,95 @@
+<?xml version="1.0"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" packagerversion="1.5.1" version="2.0" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd  http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+  <name>sfSyncContentPlugin</name>
+  <channel>pear.symfony-project.com</channel>
+  <summary>A Symfony sync command for content (databases, uploads, etc)</summary>
+  <description>
+Symfony makes it easy to sync code between your development, staging and
+production servers. But what about content? Deploying content to other
+servers typically does not happen on the same schedule as the deployment
+of code. And Symfony's rsync support doesn't address the issue of
+copying databases. So if you're like me, you're sick and tired of
+copying database dumps and data files around during the early stages of deploying
+a site. sfSyncContentPlugin to the rescue!
+</description>
+  <lead>
+    <name>Tom Boutell</name>
+    <user>boutell</user>
+    <email>tom@punkave.com</email>
+    <active>yes</active>
+  </lead>
+  <lead>
+    <name>Alex Gilbert</name>
+    <user>agilbert</user>
+    <email>alex@punkave.com</email>
+    <active>yes</active>
+  </lead>
+  <date>2010-05-06</date>
+  <time>09:40:00</time>
+  <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+  </version>
+  <stability>
+    <release>stable</release>
+    <api>stable</api>
+  </stability>
+  <license uri="http://www.symfony-project.com/license">MIT license</license>
+  <notes>-</notes>
+  <contents>
+   <dir name="/"><dir name="lib"><file name="sfSyncContentTools.class.php" role="data"/><dir name="task"><file name="mysqldumpTask.class.php" role="data"/><file name="mysqlloadTask.class.php" role="data"/><file name="synccontentTask.class.php" role="data"/></dir></dir><file name="LICENSE" role="data"/><file name="README" role="data"/></dir>
+ </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>5.0.0</min>
+      </php>
+      <pearinstaller>
+        <min>1.4.1</min>
+      </pearinstaller>
+      <package>
+        <name>symfony</name>
+        <channel>pear.symfony-project.com</channel>
+        <min>1.2.0</min>
+        <max>2.0.0</max>
+        <exclude>2.0.0</exclude>
+      </package>
+    </required>
+  </dependencies>
+  <phprelease/>
+  <changelog>
+    <release>
+      <version>
+        <release>1.0.0</release>
+        <api>1.0.0</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="http://www.apostrophenow.com/home/license">MIT license</license>
+      <date>2010-05-06</date>
+      <notes>
+       * Correctly packaged as stable and 1.4 compatible. 
+       * Database tasks performed via mysql-load and mysql-dump tasks which are executd both locally and remotely via ssh. This eliminates the need for buggy re-parsing of databases.yml and cuts down on the number of password prompts required. Support for specifying a different database connection by name was removed as this has never been well-tested. In the future we'll look at the possibility of syncing multiple databases.
+       * ssh on a nonstandard port number is now supported (via the usual properties.ini setting).
+       * rsync options are now friendly to setups that use group permissions (although that is somewhat pointless with Symfony because it 777's everything for you on a regular basis).
+     </notes>
+    </release>
+    <re lease>
+      <version>
+        <release>0.9.1</release>
+        <api>0.9.1</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <license uri="http://www.apostrophenow.com/home/license">MIT license</license>
+      <date>2009-08-10</date>
+      <notes>
+       Boring and stable, just not released as such
+     </notes>
+    </release>
+  </changelog>
+</package>
