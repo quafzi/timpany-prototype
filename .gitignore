@@ -5,7 +5,6 @@ data/a_writable/*
 data/sql/*
 log/*
 base
-lib/vendor/symfony
 web/sf
 web/gallery/*
 web/upload*
