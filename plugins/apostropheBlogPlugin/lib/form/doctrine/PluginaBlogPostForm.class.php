@@ -11,6 +11,7 @@
 abstract class PluginaBlogPostForm extends BaseaBlogPostForm
 {
   protected $engine = 'aBlog';
+  protected $categoryColumn = 'posts';
 
   public function setup()
   {
@@ -18,33 +19,4 @@ abstract class PluginaBlogPostForm extends BaseaBlogPostForm
     
     $this->widgetSchema->setNameFormat('a_blog_item[%s]');
   }
-
-  public function updateCategoriesList($values)
-  {
-    $link = array();
-    if(!is_array($values))
-      $values = array();
-    foreach ($values as $value)
-    {
-      $existing = Doctrine::getTable('aBlogCategory')->findOneBy('name', $value);
-      if($existing)
-      {
-        $aBlogCategory = $existing;
-      }
-      else
-      {
-        $aBlogCategory = new aBlogCategory();
-        $aBlogCategory['name'] = $value;
-      }
-      $aBlogCategory['posts'] = true;
-      $aBlogCategory->save();
-      $link[] = $aBlogCategory['id'];
-    }
-    if(!is_array($this->values['categories_list']))
-    {
-      $this->values['categories_list'] = array();
-    }
-    $this->values['categories_list'] = array_merge($link, $this->values['categories_list']);
-  }
-
 }

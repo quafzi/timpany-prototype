@@ -30,11 +30,7 @@ abstract class BaseaBlogAdminActions extends autoABlogAdminActions
     
   public function executeAutocomplete(sfWebRequest $request)
   {
-    $search = $request->getParameter('q', '');
-    $q = Doctrine::getTable('aBlogPost')->createQuery()
-      ->andWhere("title LIKE ?", '%'.$search.'%');
-    Doctrine::getTable('aBlogPost')->addPublished($q);
-    $this->aBlogPosts =  $q->execute(array(), Doctrine::HYDRATE_ARRAY);
+    $this->aBlogPosts = aBlogItemTable::titleSearch($request->getParameter('q'), '@a_blog_search_redirect');
     $this->setLayout(false);
   }
   

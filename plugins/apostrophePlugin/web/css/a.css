@@ -50,7 +50,10 @@
 
 	*** Always Override Styles
 	* 30. Bundled Templates
-	* 31. aUI & Admin Colors - Default
+	* 31. Login button and language switcher
+	* 32. New lightweight rich text slot
+	* 33. Some Admin Generator Styles
+	* 34. aUI & Admin Colors - Default
 	
 */
 
@@ -2549,15 +2552,6 @@ margin: 20px 40px;
 font-style: italic;
 }
 
-.a-slot.aRichText blockquote
-{
-	display: block;
-	float: left;
-	clear: both;
-	display: inline;	
-	margin: 20px 40px;
-}
-
 .a-slot.aRichText h3
 {
 font-size: 150%;
@@ -2662,21 +2656,6 @@ margin-bottom: 40px;
 	margin: 5px 0;
 }
 
-.a-slideshow-placeholder
-{ /* Height and Width are defined in the template and applied inline in _normalView.php */
-}
-
-.a-slideshow-placeholder span
-{
-	display: block;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	border: 1px dashed #ccc;
-	margin: -1px 0 0 -1px;
-	background: rgba(0,0,0,0.025);
-}
-
 ul.a-slideshow-controls
 {/* Slideshow Controls */
 position: absolute;
@@ -2741,6 +2720,22 @@ clear: both;
 	line-height:0 !important; /* RB: fixes the bit of whitespace after img */
 }
 
+.a-media-placeholder
+{ 
+/* Height and Width are defined in the template and applied inline in _normalView.php */
+/* Placeholder is used in aImage, aVideo, aSlideshow*/
+}
+
+.a-media-placeholder span
+{
+	display: block;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	border: 1px dashed #ccc;
+	margin: -1px 0 0 -1px;
+	background: rgba(0,0,0,0.025);
+}
 
 /* aButton Slot Styles */
 
@@ -3264,7 +3259,7 @@ ul.a-controls .a-variant-options.loading
 	width: auto;
 	margin-left: 20px;
 	padding: 0 6px 0 0;
-	background: rgba(0,0,0,1);
+	background: #000;
 	color: #ccc;
 	line-height: 21px;
 	-moz-border-radius: 0 4px 4px 0px;
@@ -5514,7 +5509,7 @@ width: 100%;
 }
 
 
-/* 34. Some Admin Generator Styles
+/* 33. Some Admin Generator Styles
 -------------------------------------*/
 
 .a-admin-generator .a-form-row input, 
@@ -5620,10 +5615,6 @@ border: none;
 /* 34. aUI & Admin Colors - Default
 -------------------------------------*/
 
-/* GREEN — 153,204,51 */
-/* ORANGE — 255,153,0 */
-/* PINK — 255,0,102 */
-
 #a-global-toolbar #the-apostrophe
 { /* Apostrophe */
 	background-color: rgb(255,150,0);
@@ -5701,5 +5692,3 @@ border-color: rgb(255,150,0);
 { /* Text Color */
 color: rgb(255,150,0);
 }
-
-

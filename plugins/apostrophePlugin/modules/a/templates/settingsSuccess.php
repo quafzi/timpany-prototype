@@ -52,19 +52,7 @@
 		</div>
 	
   <div id="a-page-settings-right">
-	
-		<h4><?php echo __('Page Permissions', null, 'apostrophe') ?></h4>
-	
-		<div class="a-page-permissions">
-		  <?php include_partial('a/privileges', 
-		    array('form' => $form, 'widget' => 'editors',
-		      'label' => 'Editors', 'inherited' => $inherited['edit'],
-		      'admin' => $admin['edit'])) ?>
-		  <?php include_partial('a/privileges', 
-		    array('form' => $form, 'widget' => 'managers',
-		      'label' => 'Managers', 'inherited' => $inherited['manage'],
-		      'admin' => $admin['manage'])) ?>
-			</div>
+    <?php include_partial('a/allPrivileges', array('form' => $form, 'inherited' => $inherited, 'admin' => $admin)) ?>
   </div>
 
 	<div class="a-form-row template" id="a-page-template">
@@ -134,8 +122,6 @@
 	  }
 	}
 	aUpdateEngineAndTemplate();
-	<?php // you can do this: { remove: 'custom html for remove button' } ?>
-	$(function() { aMultipleSelect('#a-page-settings', { 'choose-one': <?php echo json_encode(__("Choose a User to Add", null, 'apostrophe')) ?>}) });
 
 	<?php // you can do this: { linkTemplate: "<a href='#'>_LABEL_</a>",  ?>
 	<?php //                    spanTemplate: "<span>_LINKS_</span>",     ?>

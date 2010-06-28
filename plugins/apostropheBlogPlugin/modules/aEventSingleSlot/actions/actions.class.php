@@ -1,5 +1,5 @@
 <?php
-class aEventSingleSlotActions extends BaseaBlogSingleSlotActions
+class aEventSingleSlotActions extends BaseaEventSingleSlotActions
 {
 }
   

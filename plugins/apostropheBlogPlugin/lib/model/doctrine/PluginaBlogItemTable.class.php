@@ -112,4 +112,32 @@ class PluginaBlogItemTable extends Doctrine_Table
     return $q->fetchOne();
   }
 
+  // Search for a substring in all event or blog titles. Slug prefix can be
+  // @a_event_search_redirect or @a_blog_search_redirect
+  
+  static public function titleSearch($search, $slugPrefix)
+  {
+    $q = aPageTable::queryWithTitles();
+    $q->addWhere('p.slug LIKE ?', array("$slugPrefix%"));
+    $q->addWhere('s.value LIKE ?', array('%'.$search.'%'));
+    $q->addWhere('p.archived IS FALSE');
+    $virtualPages = $q->execute(array(), Doctrine::HYDRATE_ARRAY);
+    $ids = array();
+    foreach ($virtualPages as $page)
+    {
+      if (preg_match("/^$slugPrefix\?id=(\d+)$/", $page['slug'], $matches))
+      {
+        $ids[] = $matches[1];
+      }
+    }
+    if (!count($ids))
+    {
+      return array();
+    }
+    else
+    {
+      return Doctrine::getTable('aBlogItem')->createQuery('e')->whereIn('e.id', $ids)->execute(array(), Doctrine::HYDRATE_ARRAY);
+    }
+  }
+
 }

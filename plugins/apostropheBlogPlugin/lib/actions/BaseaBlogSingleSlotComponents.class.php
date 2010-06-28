@@ -26,10 +26,12 @@ abstract class BaseaBlogSingleSlotComponents extends BaseaSlotComponents
       $this->form = new $this->formClass($this->id, $this->slot->getArrayValue());
     }
   }
+  
   public function executeNormalView()
   {
     $this->setup();
     $this->values = $this->slot->getArrayValue();
+		$this->aBlogItem = new aBlogItem;
     if(isset($this->values['blog_item']))
     {
       $this->aBlogItem = Doctrine::getTable($this->modelClass)->findOneBy('id', $this->values['blog_item']);
@@ -37,18 +39,9 @@ abstract class BaseaBlogSingleSlotComponents extends BaseaSlotComponents
     }
     $this->options['word_count'] = $this->getOption('word_count', 100);
 
-        if(!isset($this->options['slideshowOptions']))
-		{ // If no slideshow options are set, use the defaults
-	    $this->options['slideshowOptions'] = array('width' => 100, 'height' => 100, 'resizeType' => 'c');
-		}
-		else
-		{ // If -some- slideshow options are set, make sure to include defaults where not specified
-	    $this->options['slideshowOptions'] = array(
-				'width' => ((isset($this->options['slideshowOptions']['width']))? $this->options['slideshowOptions']['width']:100),
-				'height' => ((isset($this->options['slideshowOptions']['height']))? $this->options['slideshowOptions']['height']:100),
-				'resizeType' => ((isset($this->options['slideshowOptions']['resizeType']))? $this->options['slideshowOptions']['resizeType']:'c'),
-			);
-		}
+		$this->options['slideshowOptions']['width']	= ((isset($this->options['slideshowOptions']['width']))? $this->options['slideshowOptions']['width']:100);
+		$this->options['slideshowOptions']['height'] = ((isset($this->options['slideshowOptions']['height']))? $this->options['slideshowOptions']['height']:100);
+		$this->options['slideshowOptions']['resizeType'] = ((isset($this->options['slideshowOptions']['resizeType']))? $this->options['slideshowOptions']['resizeType']:'c');
 
     $this->options['excerptLength'] = $this->getOption('excerptLength', 200);
     $this->options['maxImages'] = $this->getOption('maxImages', 1);

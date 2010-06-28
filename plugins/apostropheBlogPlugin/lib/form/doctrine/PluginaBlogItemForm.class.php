@@ -11,6 +11,7 @@
 abstract class PluginaBlogItemForm extends BaseaBlogItemForm
 {
   protected $engine = 'aBlog';
+  protected $categoryColumn = 'posts';
 
   public function setup()
   {
@@ -33,7 +34,7 @@ abstract class PluginaBlogItemForm extends BaseaBlogItemForm
         new sfWidgetFormInputHidden());
       //TODO: Make this validator better, should check for duplicate categories, etc.
       $this->setValidator('categories_list_add',
-        new sfValidatorString(array('required' => false)));
+        new sfValidatorPass(array('required' => false)));
     }
          
     if(!$user->hasCredential('admin'))
@@ -107,7 +108,22 @@ abstract class PluginaBlogItemForm extends BaseaBlogItemForm
     $this->widgetSchema['tags']       = new sfWidgetFormInput(array('default' => implode(', ', $this->getObject()->getTags())), array('class' => 'tag-input', 'autocomplete' => 'off'));
     $this->validatorSchema['tags']    = new sfValidatorString(array('required' => false));
 
-    $this->validatorSchema->setPostValidator(new sfValidatorPass());
+    $this->validatorSchema->setPostValidator(
+      new sfValidatorCallback(array('callback' => array($this, 'postValidator')))
+    );
+  }
+
+  public function postValidator($validator, $values)
+  {
+    if(isset($values['categories_list_add']) && is_array($values['categories_list_add']))
+    {
+      $stringValidator = new sfValidatorString();
+      foreach($values['categories_list_add'] as $key => $value)
+      {
+        $values['categories_list_add'][$key] = $stringValidator->clean($value);
+      }
+    }
+    return $values;
   }
   
   public function updateCategoriesList($values)
@@ -117,8 +133,17 @@ abstract class PluginaBlogItemForm extends BaseaBlogItemForm
       $values = array();
     foreach ($values as $value)
     {
-      $aBlogCategory = new aBlogCategory();
-      $aBlogCategory['name'] = $value;
+      $existing = Doctrine::getTable('aBlogCategory')->findOneBy('name', $value);
+      if($existing)
+      {
+        $aBlogCategory = $existing;
+      }
+      else
+      {
+        $aBlogCategory = new aBlogCategory();
+        $aBlogCategory['name'] = $value;
+      }
+      $aBlogCategory[$this->categoryColumn] = true;
       $aBlogCategory->save();
       $link[] = $aBlogCategory['id'];
     }
@@ -129,7 +154,7 @@ abstract class PluginaBlogItemForm extends BaseaBlogItemForm
     $this->values['categories_list'] = array_merge($link, $this->values['categories_list']);
   }
   
-  public function doSave($con = null)
+  protected function doSave($con = null)
   {
     $tags = $this->values['tags'];
     $tags = preg_replace('/\s\s+/', ' ', $tags);

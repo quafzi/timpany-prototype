@@ -43,12 +43,12 @@
 <?php else: ?>
 
 	<?php if (isset($options['singleton']) != true): ?>
-		
+				
 		<?php (isset($options['width']))?  $style = 'width:' .  $options['width'] .'px;': $style = 'width:100%;'; ?>
-		<?php (isset($options['height']))? $height = $options['height'] : $height = (($options['width'])? floor($options['width']*.56):'100'); ?>		
+		<?php (isset($options['height']))? $height = $options['height'] : $height = ((isset($options['width']))? floor($options['width']*.56):'100'); ?>		
 		<?php $style .= 'height:'.$height.'px;' ?>
 	
-		<div class="a-slideshow-placeholder" style="<?php echo $style ?>">
+		<div class="a-media-placeholder" style="<?php echo $style ?>">
 			<span style="line-height:<?php echo $height ?>px;"><?php echo __("Create a Slideshow", null, 'apostrophe') ?></span>
 		</div>
 	

@@ -31,11 +31,15 @@ abstract class BaseaEventAdminActions extends autoAEventAdminActions
     
   public function executeAutocomplete(sfWebRequest $request)
   {
-    $search = $request->getParameter('q', '');
-    $q = Doctrine::getTable('aEvent')->createQuery()
-      ->andWhere("title LIKE ?", '%'.$search.'%');
-    Doctrine::getTable('aEvent')->addPublished($q);
-    $this->aEvents = $q->execute();
+    // Search is in virtual pages, the TITLE field is dead (or going to be) and not
+    // I18N, we have to cope with that correctly. I tried to use Zend Search but we
+    // can't easily distinguish blog pages from the rest and that seems to be a deeper
+    // architectural problem. I still had to fix a few things in PluginaBlogItem which
+    // was locking the virtual pages down and making them unsearchable by normal mortals.
+    // Now it locks them down only when they are not status = published. Republish things
+    // to get the benefit of this on existing sites
+    
+    $this->aEvents = aBlogItemTable::titleSearch($request->getParameter('q'), '@a_event_search_redirect');
     $this->setLayout(false);
   }
   
@@ -100,7 +104,7 @@ abstract class BaseaEventAdminActions extends autoAEventAdminActions
 
   public function executeIndex(sfWebRequest $request)
   {
-    if(!aPageTable::getFirstEnginePage('aBlog'))
+    if(!aPageTable::getFirstEnginePage('aEvent'))
     {
       $this->setTemplate('engineWarning');
     }

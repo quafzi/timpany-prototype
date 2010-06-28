@@ -12,6 +12,7 @@ abstract class PluginaEventForm extends BaseaEventForm
 {
 
   protected $engine = 'aEvent';
+  protected $categoryColumn = 'events';
 
   public function setup()
   {
@@ -45,33 +46,5 @@ abstract class PluginaEventForm extends BaseaEventForm
     $this->getWidgetSchema()->setDefault('end_date', date('Y/m/d'));
 
     $this->widgetSchema->setNameFormat('a_blog_item[%s]');
-  }
-
-  public function updateCategoriesList($values)
-  {
-    $link = array();
-    if(!is_array($values))
-      $values = array();
-    foreach ($values as $value)
-    {
-      $existing = Doctrine::getTable('aBlogCategory')->findOneBy('name', $value);
-      if($existing)
-      {
-        $aBlogCategory = $existing;
-      }
-      else
-      {
-        $aBlogCategory = new aBlogCategory();
-        $aBlogCategory['name'] = $value;
-      }
-      $aBlogCategory['events'] = true;
-      $aBlogCategory->save();
-      $link[] = $aBlogCategory['id'];
-    }
-    if(!is_array($this->values['categories_list']))
-    {
-      $this->values['categories_list'] = array();
-    }
-    $this->values['categories_list'] = array_merge($link, $this->values['categories_list']);
   }
 }

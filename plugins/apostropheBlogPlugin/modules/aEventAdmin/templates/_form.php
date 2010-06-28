@@ -96,7 +96,9 @@
 <?php // Blog Post Categories ?>
 <hr />
 <div class="categories section" id="categories-section">
+	<?php if($sf_user->hasCredential('admin')): ?>
 	<h4><?php echo __('Categories', array(), 'apostrophe_blog') ?></h4>
+  <?php endif ?>
 	<?php echo link_to('edit categories','@a_blog_category_admin', array('class' => 'edit-categories', )) ?>	
 	<?php echo $form['categories_list']->render() ?>
 	<?php echo $form['categories_list']->renderError() ?>

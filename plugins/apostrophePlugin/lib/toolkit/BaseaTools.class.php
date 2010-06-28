@@ -1,21 +1,21 @@
 <?php
 
-class aTools
+class BaseaTools
 {
   // ALL static variables must go here
   
   // We need a separate flag so that even a non-CMS page can
   // restore its state (i.e. set the page back to null)
-  static private $global = false;
+  static protected $global = false;
   // We now allow fetching of slots from multiple pages, which can be
   // normal pages or outside-of-navigation pages like 'global' that are used
   // solely for this purpose. This allows efficient fetching of only slots that are
   // relevant to your needs, rather than fetching all 'global' slots at once
-  static private $globalCache = array();
-  static private $currentPage = null;
-  static private $savedCurrentPage = null;
+  static protected $globalCache = array();
+  static protected $currentPage = null;
+  static protected $pageStack = array();
   static protected $globalButtons = false;
-  static private $allowSlotEditing = true;
+  static protected $allowSlotEditing = true;
   static protected $realUrl = null;
   
   // Must reset ALL static variables to their initial state
@@ -24,7 +24,7 @@ class aTools
     self::$global = false;
     self::$globalCache = false;
     self::$currentPage = null;
-    self::$savedCurrentPage = null;
+    self::$pageStack = array();
     self::$globalButtons = false;
     self::$allowSlotEditing = true;
     aNavigation::simulateNewRequest();
@@ -139,18 +139,11 @@ class aTools
     }
     if (isset($options['slug']))
     {
-      $page = self::getCurrentPage();
-      if ($page)
-      {
-        if ($page->slug === $options['slug'])
-        {
-          // Nothing to do. This can happen if, for instance, a template used on all pages
-          // including the chemistry home page fetches a footer from the chemistry home page
-          return;
-        }
-      }
+      // Note that we push onto the stack even if the page specified is the same page
+      // we're looking at. This doesn't hurt because of caching, and it allows us
+      // to keep the stack count properly
       $slug = $options['slug'];
-      self::$savedCurrentPage = self::getCurrentPage();
+      self::$pageStack[] = self::getCurrentPage();
       // Caching the global page speeds up pages with two or more global slots
       if (isset(self::$globalCache[$slug]))
       {
@@ -176,10 +169,8 @@ class aTools
   {
     if (self::$global)
     {
-      self::setCurrentPage(self::$savedCurrentPage);
-      // Set to null not false
-      self::$savedCurrentPage = null;
-      self::$global = false;
+      self::setCurrentPage(array_pop(self::$pageStack));
+      self::$global = (count(self::$pageStack));
     }
   }
 
@@ -250,9 +241,17 @@ class aTools
   }
   static public function getRealPage()
   {
-    if (self::$savedCurrentPage)
+    if (count(self::$pageStack))
     {
-      return self::$savedCurrentPage;
+      $page = self::$pageStack[0];
+      if ($page)
+      {
+        return $page;
+      }
+      else
+      {
+        return false;
+      }
     }
     elseif (self::$currentPage)
     {
@@ -567,6 +566,31 @@ class aTools
   
   static public function getVariantsForSlotType($type, $options = array())
   {
+    // 1. By default, all variants of the slot are allowed.
+    // 2. If app_a_allowed_variants is set and a specific list of allowed variants
+    // is provided for this slot type, those variants are allowed.
+    // 3. If app_a_allowed_variatns is set and a specific list is not present for this slot type,
+    // no variants are allowed for this slot type.
+    // 4. An allowed_variants option in an a_slot or a_area call overrides all of the above.
+    
+    // This makes it easy to define lots of variants, then disable them by default for 
+    // templates that don't explicitly enable them. This is useful because variants are often
+    // specific to the dimensions or other particulars of a particular template
+
+    if (sfConfig::has('app_a_allowed_slot_variants'))
+    {
+      $allowedVariantsAll = sfConfig::get('app_a_allowed_slot_variants', array());
+      $allowedVariants = array();
+      if (isset($allowedVariantsAll[$type]))
+      {
+        $allowedVariants = $allowedVariantsAll[$type];
+      }
+    }
+    if (isset($options['allowed_variants']))
+    {
+      $allowedVariants = $options['allowed_variants'];
+    }
+    
     $variants = sfConfig::get('app_a_slot_variants');
     if (!is_array($variants))
     {
@@ -577,9 +601,9 @@ class aTools
       return array();
     }
     $variants = $variants[$type];
-    if (isset($options['allowed_variants']))
+    if (isset($allowedVariants))
     {
-      $allowed = array_flip($options['allowed_variants']);
+      $allowed = array_flip($allowedVariants);
       $keep = array();
       foreach ($variants as $name => $value)
       {
@@ -593,7 +617,7 @@ class aTools
     return $variants;
   }
   
-  static private function i18nDummy()
+  static protected function i18nDummy()
   {
     __('Reorganize', null, 'apostrophe');
     __('Users', null, 'apostrophe');

@@ -19,7 +19,6 @@ class aBlogSingleSlotForm extends BaseForm
     
     $this->widgetSchema['blog_item'] = new sfWidgetFormInputHidden();
     $this->validatorSchema['blog_item'] = new sfValidatorDoctrineChoice(array('model' => $this->model, 'multiple' => false));
-    
     // Ensures unique IDs throughout the page
     $this->widgetSchema->setNameFormat('slot-form-' . $this->id . '[%s]');
     

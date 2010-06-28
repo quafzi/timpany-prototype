@@ -1,5 +1,5 @@
 <?php
-class aEventSingleSlotComponents extends BaseaBlogSingleSlotComponents
+class aEventSingleSlotComponents extends BaseaEventSingleSlotComponents
 {
 
 }

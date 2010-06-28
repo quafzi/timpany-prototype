@@ -25,6 +25,7 @@ abstract class BaseaEventActions extends BaseaBlogActions
     $this->buildParams();
     $this->dateRange = '';
     $this->aEvent = $this->getRoute()->getObject();
+    $this->blogCategories = $this->page->BlogCategories;
     $this->forward404Unless($this->aEvent);
     $this->forward404Unless($this->aEvent['status'] == 'published');
     aBlogItemTable::populatePages(array($this->aEvent));

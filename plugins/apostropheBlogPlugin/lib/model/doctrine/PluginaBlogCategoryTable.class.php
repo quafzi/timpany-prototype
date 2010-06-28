@@ -28,18 +28,24 @@ class PluginaBlogCategoryTable extends Doctrine_Table
     $connection = Doctrine_Manager::connection();
     $pdo = $connection->getDbh();
 
-    $query = "SELECT tg.tag_id, t.name, COUNT(tg.id) AS t_count FROM a_blog_item b
-      LEFT JOIN a_blog_item_category bic ON b.id = bic.blog_item_id
-      LEFT JOIN a_blog_category bc ON bic.blog_category_id = bc.id
-      LEFT JOIN tagging tg ON tg.taggable_id = b.id
-      LEFT JOIN tag t ON t.id = tg.tag_id
-      WHERE tg.taggable_model = '$model'
-      AND b.status = 'published'";
+    $innerQuery = "SELECT b.id AS id FROM a_blog_item b
+                   LEFT JOIN a_blog_item_category bic ON b.id = bic.blog_item_id
+                   LEFT JOIN a_blog_category bc ON bic.blog_category_id = bc.id
+                   WHERE  b.status = 'published' AND b.published_at < NOW()";
 
     if(count($categoryIds))
     {
-      $query.=" AND bc.id IN (".implode(',', $categoryIds).") ";
+      $innerQuery.=" AND bc.id IN (".implode(',', $categoryIds).") ";
     }
+
+    $innerQuery.= " GROUP BY b.id ";
+
+    $query = "SELECT tg.tag_id, t.name, COUNT(tg.id) AS t_count FROM (
+              $innerQuery
+              ) as b
+              LEFT JOIN tagging tg ON tg.taggable_id = b.id
+              LEFT JOIN tag t ON t.id = tg.tag_id
+              WHERE tg.taggable_model = '$model'";
 
     $query.= "GROUP BY tg.tag_id ";
 

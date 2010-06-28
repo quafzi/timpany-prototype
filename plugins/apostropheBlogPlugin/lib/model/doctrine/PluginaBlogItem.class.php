@@ -50,8 +50,10 @@ abstract class PluginaBlogItem extends BaseaBlogItem
     // Create a virtual page for this item
     $page = new aPage();
     $page['slug'] = $this->getVirtualPageSlug();
-    $page['view_is_secure'] = true;
-    $page['archived'] = true;
+    // Search is good, let it happen
+    $page['view_is_secure'] = false;
+    // ... But not if we're unpublished
+    $page->archived = !($this->status === 'published');
     $page->save();
     $this->Page = $page;
 
@@ -161,6 +163,10 @@ abstract class PluginaBlogItem extends BaseaBlogItem
       array(
         'permid' => 1,
         'slot' => $catTag));
+    $this->Page->archived = !($this->status === 'published');
+    // Search is good, let it happen
+    $this->Page->view_is_secure = false;
+    $this->Page->save();
   }
 
   /**

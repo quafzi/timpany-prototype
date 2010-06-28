@@ -32,10 +32,12 @@
 	      <?php // creating a gratuitous collection of hidden form widgets that are never edited, let's ?> 
 	      <?php // attach the necessary context fields to the URL just like Doctrine forms do. ?>
 	      <?php // We force a query string for compatibility with our simple admin routing rule ?>
+	      <?php // TODO: remove real-slug in 1.5, it is backwards compatibility cruft ?>
 	      <?php echo json_encode(url_for($type . 'Slot/edit') . '?' . http_build_query(array('slot' => $name, 'permid' => $permid, 'slug' => $slug, 'real-slug' => $realSlug))) ?>, 
 	      $('#a-slot-form-<?php echo $id ?>').serialize(), 
 	      function(data) {
 	        $('#a-slot-content-<?php echo $id ?>').html(data);
+					aUI($('#a-slot-<?php echo $id ?>'));
 	      }, 
 	      'html'
 	    );
@@ -78,10 +80,10 @@
 
 		// SAVE 
   	$('#a-slot-form-submit-<?php echo $id ?>').click(function(){
-  			$(this).parents('.a-slot').find('.a-slot-controls .edit').removeClass('editing-now');
-  			$(this).parents('.a-area.editing-now').removeClass('editing-now').find('.a-area-controls .edit').removeClass('editing-now'); // for singletons
-  			window.apostrophe.callOnSubmit('<?php echo $id ?>');
-  			return true;
+  		$(view).find('.editing-now').removeClass('editing-now');
+ 			$(view).parents('.a-area.editing-now').removeClass('editing-now').find('.editing-now').removeClass('editing-now'); // for singletons
+ 			window.apostrophe.callOnSubmit('<?php echo $id ?>');
+ 			return true;
   	});
 
 	<?php if ($showEditor): ?>
@@ -123,8 +125,8 @@
   <?php if (isset($validationData['form']) && !$validationData['form']->isValid()): ?>
   <script type="text/javascript" charset="utf-8">
     $(document).ready(function(){
-      aUI();
-    })
+			aUI($('#a-slot-<?php echo $id ?>'));
+	   });
   </script>
   <?php endif; ?>
 
