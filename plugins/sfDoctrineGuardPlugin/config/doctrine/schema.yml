@@ -1,5 +1,6 @@
 sfGuardGroup:
-  actAs: [Timestampable]
+  actAs:
+    Timestampable: ~
   columns:
     id:
       type: integer(4)
@@ -8,7 +9,8 @@ sfGuardGroup:
     name:
       type: string(255)
       unique: true
-    description: string(1000)
+    description:
+      type: string(1000)
   relations:
     users:
       class: sfGuardUser
@@ -24,7 +26,8 @@ sfGuardGroup:
       foreignAlias: Groups
 
 sfGuardPermission:
-  actAs: [Timestampable]
+  actAs:
+    Timestampable: ~
   columns:
     id:
       type: integer(4)
@@ -33,14 +36,16 @@ sfGuardPermission:
     name:
       type: string(255)
       unique: true
-    description: string(1000)
+    description:
+      type: string(1000)
 
 sfGuardGroupPermission:
   options:
     symfony:
       form:   false
       filter: false
-  actAs: [Timestampable]
+  actAs:
+    Timestampable: ~
   columns:
     group_id:
       type: integer(4)
@@ -57,7 +62,8 @@ sfGuardGroupPermission:
       onDelete: CASCADE
 
 sfGuardUser:
-  actAs: [Timestampable]
+  actAs:
+    Timestampable: ~
   columns:
     id:
       type: integer(4)
@@ -71,8 +77,10 @@ sfGuardUser:
       type: string(128)
       default: sha1
       notnull: true
-    salt: string(128)
-    password: string(128)
+    salt:
+      type: string(128)
+    password:
+      type: string(128)
     is_active:
       type: boolean
       default: 1
@@ -103,7 +111,8 @@ sfGuardUserPermission:
     symfony:
       form:   false
       filter: false
-  actAs: [Timestampable]
+  actAs:
+    Timestampable: ~
   columns:
     user_id:
       type: integer(4)
@@ -124,7 +133,8 @@ sfGuardUserGroup:
     symfony:
       form:   false
       filter: false
-  actAs: [Timestampable]
+  actAs:
+    Timestampable: ~
   columns:
     user_id:
       type: integer(4)
@@ -145,7 +155,8 @@ sfGuardRememberKey:
     symfony:
       form:   false
       filter: false
-  actAs: [Timestampable]
+  actAs:
+    Timestampable: ~
   columns:
     id:
       type: integer(4)
@@ -153,7 +164,8 @@ sfGuardRememberKey:
       autoincrement: true
     user_id:
       type: integer(4)
-    remember_key: string(32)
+    remember_key:
+      type: string(32)
     ip_address:
       type: string(50)
       primary: true
