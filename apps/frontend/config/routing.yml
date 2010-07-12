@@ -11,6 +11,19 @@ homepage:
 a_action:
   url:   /cms/:module/:action
 
+# shop pages
+timpany_index:
+  url:   /shop
+  param: { module: timpany, action: index }
+timpany_category:
+  url:   /shop/:category
+  param: { module: timpany, action: index }
+  requirements: { category: .* }
+timpany_product:
+  url:   /shop/:category/:product
+  param: { module: timpany, action: show }
+  requirements: { category: .*, product: .* }
+
 # Must be the LAST rule
 a_page:
   url:   /:slug

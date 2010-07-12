@@ -22,5 +22,6 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfSyncContentPlugin');
     $this->enablePlugins('apostrophePlugin');
     $this->enablePlugins('apostropheBlogPlugin');
+    $this->enablePlugins('timpanyPlugin');
   }
 }
