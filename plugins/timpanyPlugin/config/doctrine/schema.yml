@@ -1,0 +1,26 @@
+options:
+  type: INNODB
+  
+timpanyProduct:
+  tableName: timpany_product
+  actAs:
+    Timestampable: ~
+#    Taggable: ~
+#    Sluggable:
+#      fields: [ title ]
+#      builder: [ sfTools, slugify ]
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    name:
+      type: string(150)
+    description:
+      type: text
+    article_number:
+      type: string(36)
+    net_price:
+      type: float
+    inventory:
+      type: float
