@@ -8,3 +8,6 @@ base
 web/sf
 web/gallery/*
 web/upload*
+.buildpath
+.project
+.settings
