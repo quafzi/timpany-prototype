@@ -11,13 +11,14 @@
     		<div class="product-name">
     		  <?php echo link_to($product->getName(), $detail_link) ?>
             </div>
+            <div class="product-image">
+              <?php echo image_tag('../timpanyPlugin/images/missing_image.png', array('alt_and_title' => 'no image available', 'width' => '100')) ?>
+            </div>
     		<div class="product-price">
               <dl>
                 <dt><?php echo __('net_price') ?></dt>
                 <dd><?php echo format_currency($product->getNetPrice()) ?> €</dd>
               </dl>
-            </div>
-    		<div class="product-price">
               <dl>
                 <dt><?php echo __('gross_price') ?></dt>
                 <dd>
