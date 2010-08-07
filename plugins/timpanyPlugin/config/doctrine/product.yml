@@ -5,10 +5,10 @@ timpanyProduct:
   tableName: timpany_product
   actAs:
     Timestampable: ~
-#    Taggable: ~
-#    Sluggable:
-#      fields: [ title ]
-#      builder: [ sfTools, slugify ]
+    Taggable: ~
+    Sluggable:
+      fields: [ name ]
+      builder: [ sfTools, slugify ]
   columns:
     id:
       type: integer(4)
@@ -24,3 +24,12 @@ timpanyProduct:
       type: float
     inventory:
       type: float
+    class_name:
+      type: string(150)
+      default: "timpanyProduct"
+  relations:
+    CartUsers:
+      class: sfGuardUser
+      local: product_id
+      foreign: sf_guard_user_id
+      refClass: timpanyCart

@@ -21,8 +21,19 @@ timpany_category:
   requirements: { category: .* }
 timpany_product:
   url:   /shop/:category/:product
-  param: { module: timpany, action: show }
+  param: { module: timpany, action: showProduct }
   requirements: { category: .*, product: .* }
+timpany_cart_add:
+  url:   /cart/add/:product
+  param: { module: timpany, action: addToCart }
+  requirements: { product: .* }
+timpany_cart_remove:
+  url:   /cart/remove/:product
+  param: { module: timpany, action: removeCartItem }
+  requirements: { product: .* }
+timpany_cart:
+  url:   /cart
+  param: { module: timpany, action: cart }
 
 # Must be the LAST rule
 a_page:

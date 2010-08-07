@@ -1,0 +1,68 @@
+re html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, code, del, dfn, em, img, q, dl, dt, dd, ol, ul, li, fieldset, font, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+	border:0 none;
+	font-family:inherit;
+	font-size:100%;
+	font-style:inherit;
+	font-weight:inherit;
+	margin:0;
+	padding:0;
+	vertical-align:baseline;
+}
+
+body
+{
+	font-family: Trebuchet MS,Helvetica,Tahoma,Arial,Verdana,sans-serif;
+	font-size: 13px;
+	color: #4a3420;
+}
+
+a, a:visited
+{
+	text-decoration: underline;
+	color: #4a3420;
+}
+
+a:focus, a:hover
+{
+	text-decoration: underline;
+	color: #aa3420;
+}
+
+#logo
+{
+	font-size: 34px;
+	font-style: italic;
+	text-transform: lowercase;
+}
+
+#logo a, #logo a:visited, #logo a:focus, #logo a:hover
+{
+	text-decoration: none;
+}
+
+.header
+{
+	height: 60px;
+	background: #faf4e0;
+	padding: 0 10px;
+}
+
+#slogan
+{
+	position:absolute;
+	top:35px;
+}
+
+.header dl.cart_info
+{
+	position:absolute;
+	right: 30px;
+	top: 10px;
+	width: 125px;
+}
+
+#sfWebDebugBar
+{
+	bottom: 0 !important;
+	top: auto !important;
+}

@@ -1,5 +1,4 @@
-<?php use_helper('I18N') ?>
-<?php // This is a copy of apostrophePlugin/modules/a/templates/layout.php ?>
+<?php use_helper('I18N', 'Timpany') ?>
 <?php // It also makes a fine site-wide layout, which gives you global slots on non-page templates ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
@@ -10,7 +9,7 @@
 	<?php // 1.3 and up don't do this automatically (no common filter) ?>
     <?php include_stylesheets() ?>
 	<?php include_javascripts() ?>
-	<link rel="shortcut icon" href="/favicon.ico" />
+	<link rel="icon" href="<?php echo $sf_request->getRelativeUrlRoot() ?>/timpanyPlugin/images/timpany.ico" type="image/x-icon" />
 
 	<!--[if lt IE 7]>
 	<script type="text/javascript" charset="utf-8">
@@ -31,16 +30,19 @@
 
   <?php // Everyone gets this now, but internally it determines which controls you should ?>
   <?php // actually see ?>
-  
 	<div id="a-wrapper">
-    <?php // Note that just about everything can be suppressed or replaced by setting a ?>
-    <?php // Symfony slot. Use them - don't write zillions of layouts or do layout stuff ?>
-    <?php // in the template (except by setting a slot). To suppress one of these slots ?>
-    <?php // completely in one line of code, just do: slot('a-whichever', '') ?>
-      
-		<div id="a-content">
-			<?php echo $sf_data->getRaw('sf_content') ?>
-		</div>
+      <div class='header'>
+        <div id='logo'><?php echo link_to('Timpany', '@timpany_index', array('title' => __('go to home page'))) ?></div>
+        <div id='slogan'>webshop of the future</div>
+        <?php include_component('timpany', 'cartInfo') ?>
+      </div>
+      <?php // Note that just about everything can be suppressed or replaced by setting a ?>
+      <?php // Symfony slot. Use them - don't write zillions of layouts or do layout stuff ?>
+      <?php // in the template (except by setting a slot). To suppress one of these slots ?>
+      <?php // completely in one line of code, just do: slot('a-whichever', '') ?>
+      <div id="a-content">
+        <?php echo $sf_data->getRaw('sf_content') ?>
+      </div>
 	</div>
 </body>
 </html>

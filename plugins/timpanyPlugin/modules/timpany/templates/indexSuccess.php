@@ -1,15 +1,36 @@
-<?php use_helper('I18N') ?>
+<?php if(isset($category)): ?>
+    <h2><?php echo $category->getName() ?></h2>
+<?php endif; ?>
 
-<h2>Produktübersicht</h2>
-<?php echo format_number_choice('[0] Es stehen keine Produkte zur Auswahl. |[1] Zur Zeit ist nur ein Produkt verfügbar. |(1,Inf] Es stehen {number} Produkte zur Auswahl.', array('{number}' => count($products)), count($products)) ?>
+<?php // echo format_number_choice('[0] Es stehen keine Produkte zur Auswahl. |[1] Zur Zeit ist nur ein Produkt verfügbar. |(1,Inf] Es stehen {number} Produkte zur Auswahl.', array('{number}' => count($products)), count($products)) ?>
 
-<ul>
+<ul class="product_list">
     <?php foreach ($products as $product): ?>
-    	<li>
-    		<div class="product-name"><?php echo $product->getName() ?></div>
-    		<div class="product-price"><?php echo $product->getNetPrice() ?> €</div>
-    		<div class="product-price"><?php echo $product->getGrossPrice(0) ?> €</div>
-    		<div class="vat-notice">(inkl. <?php echo 100.0*$product->getTaxRate(0) ?>% MwSt.)</div>
+        <?php $detail_link = '@timpany_product?category=xxx&product=' . $product->getSlug() ?>
+    	<li onclick="location.href='<?php echo url_for($detail_link) ?>'">
+    		<div class="product-name">
+    		  <?php echo link_to($product->getName(), $detail_link) ?>
+            </div>
+    		<div class="product-price">
+              <dl>
+                <dt><?php echo __('net_price') ?></dt>
+                <dd><?php echo format_currency($product->getNetPrice()) ?> €</dd>
+              </dl>
+            </div>
+    		<div class="product-price">
+              <dl>
+                <dt><?php echo __('gross_price') ?></dt>
+                <dd>
+                  <?php echo format_currency($product->getGrossPrice(0)) ?> €
+                  <div class="vat-notice">
+                    (<?php echo __('incl. {tax_percent}% VAT', array('{tax_percent}' => $product->getTaxPercent(0))) ?>)
+                  </div>
+                </dd>
+              </dl>
+            </div>
+            <div class="cart-link">
+              <?php echo link_to(__('add to cart'), '@timpany_cart_add?product='.$product->getSlug()) ?>
+            </div>
     	</li>
     <?php endforeach ?>
 </ul>

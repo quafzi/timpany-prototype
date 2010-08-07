@@ -38,6 +38,8 @@ all:
 
     rich_text_fck_js_dir:   apostrophePlugin/js/fckeditor
     
+    standard_helpers:       [Partial,Cache,Timpany]
+    
     enabled_modules:
       - a
       - aSync

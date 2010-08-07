@@ -1,0 +1,52 @@
+ul.product_list li
+{
+    width: 350px;
+    height: 100px;
+    float: left;
+    display: block;
+    margin: 5px;
+    padding: 5px;
+    
+    border: 1px brown solid;
+    background: #faf4e0;
+    
+    cursor: pointer;
+}
+
+ul.product_list li div.product-name
+{
+    font-size: 20px;
+    width: 330px;
+    text-align: center;
+    padding: 8px;
+    border-bottom: 1px brown solid;
+}
+
+ul.product_list li div.product-name a
+{
+    text-decoration: none;
+}
+
+ul.product_list li div.product-price dl dt
+{
+    float: left;
+    text-align: right;
+    padding-right: 5px;
+    width: 100px;
+}
+
+ul.product_list li div.product-price dl dd
+{
+    font-weight: bold;
+}
+
+ul.product_list li div.product-price dl dd div.vat-notice
+{
+    display: inline;
+    font-weight: normal;
+}
+
+ul.product_list li div.cart-link
+{
+    text-align: right;
+}
