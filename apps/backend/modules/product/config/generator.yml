@@ -13,9 +13,21 @@ generator:
 
     config:
       actions: ~
-      fields:  ~
-      list:    ~
+      fields:
+        class_name: {label: "Product type"}
+      list:
       filter:  ~
-      form:    ~
+      form:
+        fields:
+          class_name: {help: "class_name: name of the class this product is an instance of."}
+        display:
+          - name
+          - description
+          - article_number
+          - net_price
+          - inventory
+          - class_name
+          - slug
+          - categories_list
       edit:    ~
       new:     ~
