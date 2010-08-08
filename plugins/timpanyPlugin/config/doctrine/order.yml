@@ -47,3 +47,4 @@ timpanyOrderItem:
       local: order_id
     CurrentProductVersion:
       class: timpanyProduct
+      local: product_id
