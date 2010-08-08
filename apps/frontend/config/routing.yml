@@ -4,7 +4,7 @@ default:
   url:   /admin/:module/:action/*
 
 homepage:
-  url:  /
+  url:  /cms
   param: { module: a, action: show, slug: / }
 
 # The non-CMS actions of your project, and the admin actions of the CMS
@@ -13,7 +13,7 @@ a_action:
 
 # shop pages
 timpany_index:
-  url:   /shop
+  url:   /
   param: { module: timpany, action: index }
 timpany_category:
   url:   /shop/:category
