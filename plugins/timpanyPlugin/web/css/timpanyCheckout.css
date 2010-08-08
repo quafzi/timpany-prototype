@@ -1,0 +1,42 @@
+h2
+{
+    background-color: #4A3420;
+    color:            #faf4e0;
+    font-size:        20px;
+    
+    padding: 5px 50px 5px 300px;
+}
+
+#checkout
+{
+    margin: 5px;
+}
+
+#checkout li
+{
+    border:           #4A3420 1px solid;
+    list-style:       decimal inside;
+    margin-bottom:    1px;
+    padding:          10px;
+    width:            200px;
+}
+
+#checkout li.active
+{
+    background-color: #4A3420;
+    color:            #faf4e0;
+    border:           #4A3420 1px solid;
+}
+
+#checkout li.done
+{
+    background-color: #faf4e0;
+    border:           #4A3420 1px solid;
+}
+
+#checkout li div {
+    color:            #4A3420;
+    margin-left:      220px;
+    margin-top:       -15px;
+    width:            700px;
+}

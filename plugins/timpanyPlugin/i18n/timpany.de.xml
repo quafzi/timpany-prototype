@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="de_DE" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>cart</source>
+        <target>Warenkorb</target>
+      </trans-unit>
+      <trans-unit>
+        <source>add to cart</source>
+        <target>in den Warenkorb</target>
+      </trans-unit>
+      <trans-unit>
+        <source>net price</source>
+        <target>Nettopreis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>gross price</source>
+        <target>Bruttopreis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>incl. {tax_percent}% VAT</source>
+        <target>inkl. {tax_percent}% MwSt.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>[0] empty |[1] one item |(1,Inf] {number} items</source>
+        <target>[0] leer |[1] ein Artikel |(1,Inf] {number} Artikel</target>
+      </trans-unit>
+      <trans-unit>
+        <source>[0] no items left |[1,1] only one item left |(1,10] only {number} items left |(10,Inf] available</source>
+        <target>[0] ausverkauft |[1,1] nur noch ein Artikel |(1,10] nur noch {number} Artikel |(10,Inf] verfügbar</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

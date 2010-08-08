@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="de_DE" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>cart</source>
+        <target>Mein Warenkorb</target>
+      </trans-unit>
+      <trans-unit>
+        <source>count</source>
+        <target>Anzahl</target>
+      </trans-unit>
+      <trans-unit>
+        <source>article</source>
+        <target>Artikel</target>
+      </trans-unit>
+      <trans-unit>
+        <source>remove</source>
+        <target>entfernen</target>
+      </trans-unit>
+      <trans-unit>
+        <source>tax</source>
+        <target>MwSt.</target>
+      </trans-unit>
+      <trans-unit>
+        <source>find more</source>
+        <target>Weiter einkaufen</target>
+      </trans-unit>
+      <trans-unit>
+        <source>net sum</source>
+        <target>Zwischensumme Netto</target>
+      </trans-unit>
+      <trans-unit>
+        <source>gross sum</source>
+        <target>Zwischensumme Brutto</target>
+      </trans-unit>
+      <trans-unit>
+        <source>net price</source>
+        <target>Nettopreis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>gross price</source>
+        <target>Bruttopreis</target>
+      </trans-unit>
+      <trans-unit>
+        <source>buy now</source>
+        <target>jetzt bestellen</target>
+      </trans-unit>
+      <trans-unit>
+        <source>[0] Your cart is empty. |[1] Your cart contains one item: |(1,Inf] Your cart contains {number} items:</source>
+        <target>[0] Der Warenkorb ist leer. |[1] Der Warenkorb enthält einen Artikel: |(1,Inf] Der Warenkorb enthält {number} Artikel:</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

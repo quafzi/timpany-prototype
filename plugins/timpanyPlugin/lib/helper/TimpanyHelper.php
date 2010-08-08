@@ -28,7 +28,9 @@ function load_timpany_assets()
     array("Number", "I18N"));
 
   $response->addStylesheet('/timpanyPlugin/css/timpany.css');
+  $response->addStylesheet('/timpanyPlugin/css/timpanyCart.css');
   $response->addStylesheet('/timpanyPlugin/css/timpanyProduct.css');
+  $response->addStylesheet('/timpanyPlugin/css/timpanyCheckout.css');
 }
 
 load_timpany_assets();

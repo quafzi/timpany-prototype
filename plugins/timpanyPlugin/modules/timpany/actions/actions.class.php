@@ -17,14 +17,18 @@ class timpanyActions extends sfActions
   
   public function executeAddToCart(sfWebRequest $request)
   {
-    $this->product = timpanyProductTable::getInstance()->findOneBySlug($request->getParameter('product'));
-    $this->cart    = timpanyCart::getInstance($this->getUser());
-    $this->cart->addProduct($this->product);
-    $this->forward('timpany', 'cart');
+    $product = timpanyProductTable::getInstance()->findOneBySlug($request->getParameter('product'));
+    $this->cart = timpanyCart::getInstance($this->getUser());
+    $this->cart->addProduct($product);
+    $this->getUser()->setFlash('last_added_product', $product);
+    $this->redirect('@timpany_cart');
   }
   
   public function executeCart(sfWebRequest $request)
   {
+    if ($this->getUser()->hasFlash('last_added_product')) {
+      $this->product = $this->getUser()->getFlash('last_added_product');
+    }
     $this->cart = timpanyCart::getInstance($this->getUser());
   }
   
@@ -32,7 +36,11 @@ class timpanyActions extends sfActions
   {
     $this->cart = timpanyCart::getInstance($this->getUser());
     $this->cart->removeItemBySlug($request->getParameter('product'));
-    $this->forward('timpany', 'cart');
+    $this->redirect('@timpany_cart');
   }
   
+  public function executeCheckout(sfWebRequest $request)
+  {
+    $this->cart = timpanyCart::getInstance($this->getUser());
+  }
 }

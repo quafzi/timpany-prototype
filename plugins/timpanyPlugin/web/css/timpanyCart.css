@@ -1,0 +1,35 @@
+h2
+{
+    background-color: #4A3420;
+    color:            #faf4e0;
+    font-size:        20px;
+    
+    padding: 5px 50px 5px 300px;
+}
+
+#cart
+{
+    margin: 5px;
+}
+
+table.cart-items
+{
+    width: 100%;
+}
+
+table.cart-items th
+{
+    font-weight: bold;
+}
+
+table.cart-items, table.cart-items td, table.cart-items th
+{
+    border: 1px solid #4a3420;
+    border-collapse: collapse;
+    margin: 0px;
+}
+
+table.cart-items th, table.cart-items td
+{
+    padding: 3px;
+}

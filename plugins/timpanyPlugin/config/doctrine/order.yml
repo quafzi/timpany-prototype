@@ -1,0 +1,54 @@
+options:
+  type: INNODB
+  
+timpanyOrder:
+  tableName: timpany_order
+  actAs:
+    Timestampable: ~
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    shipping_method:
+      type: string(150)
+    shipping_data:
+      type: text
+    payment_method:
+      type: string(150)
+    payment_data:
+      type: text
+    net_sum:
+      type: float
+    billing_address:
+      type: text
+    shipping_address:
+      type: text
+  relations:
+    Products:
+      class: timpanyOrderProducts
+      foreign: order_id
+      local: id
+
+timpanyOrderProducts:
+  tableName: timpany_order_products
+  columns:
+    id:
+      type: integer(4)
+      primary: true
+      autoincrement: true
+    order_id:
+      type: integer(4)
+    product_id:
+      type: integer(4)
+    frozen_data:
+      type: text
+  relations:
+    Order:
+      class: timpanyOrder
+      local: order_id
+      foreign: id
+    CurrentProductVersion:
+      class: timpanyProduct
+      local: product_id
+      foreign: id

@@ -17,6 +17,16 @@ body
 	color: #4a3420;
 }
 
+#a-wrapper
+{
+    width: 950px;
+    margin: 0px auto;
+    border-width:     1px;
+    border-top-width: 0px;
+    border-style:     solid;
+    border-color:     #4a3420;
+}
+
 a, a:visited
 {
 	text-decoration: underline;
@@ -48,18 +58,30 @@ a:focus, a:hover
 	padding: 0 10px;
 }
 
+.footer
+{
+	height:     20px;
+	background: #4a3420;
+    color:      #faf4e0;
+	padding:    5px 10px 0;
+}
+
+.last
+{
+    float:none!important;
+}
+
 #slogan
 {
 	position:absolute;
 	top:35px;
 }
 
-.header dl.cart_info
-{
-	position:absolute;
-	right: 30px;
-	top: 10px;
-	width: 125px;
+.header dl.cart_info {
+    margin-left:800px;
+    position:relative;
+    top:-20px;
+    width:125px;
 }
 
 #sfWebDebugBar

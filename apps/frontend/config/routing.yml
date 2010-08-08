@@ -34,6 +34,9 @@ timpany_cart_remove:
 timpany_cart:
   url:   /cart
   param: { module: timpany, action: cart }
+timpany_checkout:
+  url:   /checkout
+  param: { module: timpany, action: checkout }
 
 # Must be the LAST rule
 a_page:

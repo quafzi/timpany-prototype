@@ -1,10 +1,15 @@
+ul.product_list
+{
+    margin: 5px;
+}
+
 ul.product_list li
 {
-    width: 350px;
+    width: 298px;
     height: 150px;
     float: left;
     display: block;
-    margin: 5px;
+    margin: 0px 5px 5px 0;
     padding: 5px;
     
     border: 1px brown solid;
@@ -16,7 +21,7 @@ ul.product_list li
 ul.product_list li div.product-name
 {
     font-size: 20px;
-    width: 330px;
+    width: 282px;
     text-align: center;
     padding: 8px;
     border-bottom: 1px brown solid;
@@ -32,9 +37,14 @@ ul.product_list li div.product-image
     position: absolute;
 }
 
+ul.product_list li.last-of-line
+{
+    margin-right: 0px;
+}
+
 ul.product_list li div.product-price
 {
-    margin-left: 170px;
+    margin-left: 86px;
 }
 
 ul.product_list li div.product-price dl dt
@@ -73,9 +83,24 @@ div#product-show h2
     padding: 5px 50px 5px 300px;
 }
 
-div#product-show #product-images
+#product-show #product-images
 {
     float: left;
-    height: 200px;
+    height: 300px;
     width: 300px;
+}
+
+#product-show ul
+{
+    min-height: 300px;
+}
+
+#product-show .product-price
+{
+    background:  #faf4e0;
+    border:      1px #4a3420 solid;
+    margin-left: 600px;
+    padding:     5px;
+    position:    absolute;
+    width:       200px;
 }

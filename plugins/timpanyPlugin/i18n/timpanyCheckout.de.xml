@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<xliff version="1.0">
+  <file orginal="global" source-language="de_DE" datatype="plaintext">
+    <body>
+      <trans-unit>
+        <source>checkout</source>
+        <target>Kasse</target>
+      </trans-unit>
+      <trans-unit>
+        <source>billing address</source>
+        <target>Rechnungsadresse</target>
+      </trans-unit>
+      <trans-unit>
+        <source>shipping address</source>
+        <target>Lieferadresse</target>
+      </trans-unit>
+      <trans-unit>
+        <source>shipping method</source>
+        <target>Versandart</target>
+      </trans-unit>
+      <trans-unit>
+        <source>payment method</source>
+        <target>Zahlungsart</target>
+      </trans-unit>
+      <trans-unit>
+        <source>confirm your order</source>
+        <target>Abschluss</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

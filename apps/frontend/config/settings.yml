@@ -33,12 +33,12 @@ all:
 
     # Enable the database manager
     use_database:           true
-    i18n: 		    true
+    i18n: 		            true
     default_culture:        de        # Default user culture
 
     rich_text_fck_js_dir:   apostrophePlugin/js/fckeditor
     
-    standard_helpers:       [Partial,Cache,Timpany]
+    standard_helpers:       [I18N,Partial,Cache,Timpany]
     
     enabled_modules:
       - a

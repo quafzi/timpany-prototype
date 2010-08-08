@@ -43,6 +43,9 @@
       <div id="a-content">
         <?php echo $sf_data->getRaw('sf_content') ?>
       </div>
+      <div class='footer'>
+        This is a timpany demo shop.
+      </div>
 	</div>
 </body>
 </html>

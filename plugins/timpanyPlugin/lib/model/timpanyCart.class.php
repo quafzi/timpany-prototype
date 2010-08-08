@@ -96,12 +96,17 @@ class timpanyCart
     foreach ($this->getContent() as $product_slug=>$count)
     {
       $product = timpanyProductTable::getInstance()->findOneBySlug($product_slug);
-      $items[] = array(
-        'count'     => $count,
-        'product'   => $product,
-        'net_sum'   => $product->getNetPrice(),
-        'gross_sum' => $product->getGrossPrice(0)
-      );
+      if ($product instanceof timpanyProduct)
+      {
+        $items[] = array(
+          'count'     => $count,
+          'product'   => $product,
+          'net_sum'   => $count * $product->getNetPrice(),
+          'gross_sum' => $count * $product->getGrossPrice(0)
+        );
+      } else {
+        $this->removeItemBySlug($product_slug);
+      }
     }
     return $items;
   }
