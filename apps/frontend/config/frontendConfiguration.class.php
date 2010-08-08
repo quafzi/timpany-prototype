@@ -2,7 +2,10 @@
 
 class frontendConfiguration extends sfApplicationConfiguration
 {
-  public function configure()
+  public function setup()
   {
+    parent::setup();
+    $this->enablePlugins('apostrophePlugin');
+    $this->enablePlugins('apostropheBlogPlugin');
   }
 }
