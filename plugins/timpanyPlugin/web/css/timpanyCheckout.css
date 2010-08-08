@@ -34,9 +34,15 @@ h2
     border:           #4A3420 1px solid;
 }
 
-#checkout li div {
+#checkout li div
+{
     color:            #4A3420;
     margin-left:      220px;
     margin-top:       -15px;
     width:            700px;
+}
+
+#checkout-success
+{
+    margin: 10px;
 }

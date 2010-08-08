@@ -26,6 +26,14 @@
         <source>confirm your order</source>
         <target>Abschluss</target>
       </trans-unit>
+      <trans-unit>
+        <source>Thank you!</source>
+        <target>Vielen Dank!</target>
+      </trans-unit>
+      <trans-unit>
+        <source>Thank you for your order (#{order_number}). We\'ll keep you informed of the progress</source>
+        <target>Vielen Dank für Ihre Bestellung (#{order_number}). Wir halten Sie über den Fortschritt auf dem Laufenden.</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
