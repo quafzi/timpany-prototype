@@ -1,3 +1,12 @@
+timpany_category:
+  class: sfDoctrineRouteCollection
+  options:
+    model:                timpanyCategory
+    module:               category
+    prefix_path:          /category
+    column:               id
+    with_wildcard_routes: true
+
 timpany_order:
   class: sfDoctrineRouteCollection
   options:
