@@ -12,5 +12,4 @@
  */
 abstract class PlugintimpanyOrder extends BasetimpanyOrder
 {
-
 }

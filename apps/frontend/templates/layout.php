@@ -34,6 +34,7 @@
       <div class='header'>
         <div id='logo'><?php echo link_to('Timpany', '@timpany_index', array('title' => __('go to home page'))) ?></div>
         <div id='slogan'>webshop of the future</div>
+        <?php include_component('timpany', 'userInfo') ?>
         <?php include_component('timpany', 'cartInfo') ?>
       </div>
       <?php // Note that just about everything can be suppressed or replaced by setting a ?>

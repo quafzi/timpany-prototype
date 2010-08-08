@@ -24,14 +24,9 @@ timpanyOrder:
       type: text
     shipping_address:
       type: text
-  relations:
-    Products:
-      class: timpanyOrderProducts
-      foreign: order_id
-      local: id
 
-timpanyOrderProducts:
-  tableName: timpany_order_products
+timpanyOrderItem:
+  tableName: timpany_order_item
   columns:
     id:
       type: integer(4)
@@ -41,14 +36,14 @@ timpanyOrderProducts:
       type: integer(4)
     product_id:
       type: integer(4)
+    count:
+      type: integer(3)
     frozen_data:
       type: text
   relations:
     Order:
       class: timpanyOrder
+      foreignAlias: Items
       local: order_id
-      foreign: id
     CurrentProductVersion:
       class: timpanyProduct
-      local: product_id
-      foreign: id

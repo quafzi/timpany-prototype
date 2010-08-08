@@ -5,4 +5,8 @@ class timpanyComponents extends sfComponents
   {
     $this->item_count = timpanyCart::getInstance($this->getUser())->getItemCount();
   }
+  
+  public function executeUserInfo()
+  {
+  }
 }

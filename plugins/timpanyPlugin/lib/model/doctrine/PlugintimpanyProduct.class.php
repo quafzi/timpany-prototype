@@ -6,7 +6,6 @@
  * @package    timpany
  * @subpackage model
  * @author     Thomas Kappel <quafzi@netextreme.de>
- * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
 abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpanyProductInterface
 {
@@ -152,5 +151,25 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
   public function getGrossPrice($region)
   {
     return $this->getNetPrice() + $this->getTaxAmount($region);
+  }
+  
+  /**
+   * prepare product for checkout
+   * @return timpanyCartItem
+   */
+  public function toOrderItem()
+  {
+    return new timpanyOrderItem($this->getData());
+  }
+  
+  public function toJson()
+  {
+    return json_encode(array(
+        'name'           => $this->getName(),
+        'article_number' => $this->getArticleNumber(),
+        'description'    => $this->getDescription(),
+        'properties'     => $this->getProperties(),
+        'net_price'      => $this->getNetPrice()
+    ));
   }
 }

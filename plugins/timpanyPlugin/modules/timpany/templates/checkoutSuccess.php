@@ -27,7 +27,7 @@
   <li id="review">
     <?php echo __('confirm your order', null, 'timpanyCheckout') ?>
     <div>
-        Here will appear the review form.
+        Here will appear the review form. <?php echo link_to('Finish!', '@timpany_checkout_finish') ?>
     </div>
   </li>
 </ol>

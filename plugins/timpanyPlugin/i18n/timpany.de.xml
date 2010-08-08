@@ -3,6 +3,18 @@
   <file orginal="global" source-language="de_DE" datatype="plaintext">
     <body>
       <trans-unit>
+        <source>Welcome, {full_name}!</source>
+        <target>Willkommen, {full_name}!</target>
+      </trans-unit>
+      <trans-unit>
+        <source>log in</source>
+        <target>anmelden</target>
+      </trans-unit>
+      <trans-unit>
+        <source>log off</source>
+        <target>abmelden</target>
+      </trans-unit>
+      <trans-unit>
         <source>cart</source>
         <target>Warenkorb</target>
       </trans-unit>

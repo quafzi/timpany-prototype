@@ -50,6 +50,14 @@ class timpanyCart
   }
   
   /**
+   * clear cart
+   */
+  public function clear()
+  {
+    $this->setItems(array());
+  }
+  
+  /**
    * set cart items
    * @param array $items
    */
@@ -77,12 +85,6 @@ class timpanyCart
     }
     return array();
   }
-  /*
-  public function getProducts()
-  {
-    $product_ids = array_keys($this->getContent());
-    return timpanyProductTable::getInstance()->findById($product_ids);
-  }*/
   
   public function getCountOfProduct(timpanyProductInterface $product)
   {
@@ -143,5 +145,10 @@ class timpanyCart
   public function getItemCount()
   {
     return count($this->getContent());
+  }
+  
+  public function toArray($deep=true)
+  {
+    return $this->getContent();
   }
 }

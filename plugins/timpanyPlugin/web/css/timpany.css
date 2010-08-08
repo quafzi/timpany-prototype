@@ -80,8 +80,15 @@ a:focus, a:hover
 .header dl.cart_info {
     margin-left:800px;
     position:relative;
-    top:-20px;
+    top:-30px;
     width:125px;
+}
+
+.header .user_info {
+    margin-left:400px;
+    position:relative;
+    top:-36px;
+    width:300px;
 }
 
 #sfWebDebugBar

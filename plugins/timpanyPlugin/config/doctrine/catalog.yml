@@ -55,13 +55,13 @@ timpanyCategory:
   relations:
     Products:
       class: timpanyProduct
-      refClass: timpanyCategoryProducts
+      refClass: timpanyCategoryProduct
       foreignAlias: Categories
       foreign: product_id
       local: category_id
 
-timpanyCategoryProducts:
-  tableName: timpany_category_products
+timpanyCategoryProduct:
+  tableName: timpany_category_product
   columns:
     product_id:
       type: integer(4)
