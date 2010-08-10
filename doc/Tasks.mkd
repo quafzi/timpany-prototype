@@ -1,0 +1,27 @@
+# Tasks and Topics for timpany
+*last updated 9th August 2010*
+
+## Topics
+*for next meeting and online discussions*
+
+* architecture – ongoing prototype exploration, model, plugins etc.
+* commit reviews – questions and discussion
+* organization – developing an open source project
+
+## Tasks
+*github issues created on demand[^issues]*
+
+* shop prototype integration to apostrophe project: [annismckenzie]
+* rounding gross/net/sum: [nogo]
+* organization topics and docs: [smile]
+* commit reviews: all
+	* [timpany](http://github.com/quafzi/timpany)
+	* [apostrophe now](http://github.com/annismckenzie)
+
+
+[annismckenzie]: http://github.com/annismckenzie
+[nogo]: http://github.com/nogo
+[quafzi]: http://github.com/quafzi
+[smile]: http://github.com/smile
+
+[^issues]: <http://github.com/quafzi/timpany/issues>

@@ -1,0 +1,7 @@
+# Timpany, a web shop based on symfony
+
+Introduction and overview will be provided soon here.
+
+See `doc` and our Wiki for further details on this project.
+
+Stay tuned!
