@@ -1,0 +1,61 @@
+# Contribution on timpany
+*timpany is an open source web shop based on symfony, join us*
+
+## Communication
+
+We are an open community, so broken English is most welcome.
+
+Join us here:
+
+* our [project page](http://github.com/quafzi/timpany) on github
+* the [mailing list](http://groups.google.de/group/timpany) on Google Groups
+* at [lsdug](http://lsdug.org/), Symfony & Doctrine User Group, Leipzig, Germany
+
+These notes about contributing are in `doc/Contribution.mkd` within the repo.
+
+## What we want
+
+So we are open, but we follow objectives that are quiet fixed:
+
+...
+
+## Roles
+
+*We need contributors to fulfill various roles.*
+
+* Developer
+* Designer
+* Software Architect
+* Server Admin, Github Admin, infrastructure
+* Product Manager / Requirements (mission, focus, objectives)
+* Project Manager
+* Community Manager
+* Documentation
+* QA
+* ...
+
+## Tasks
+
+* recent tasks are listed in `doc/Tasks.mkd`
+* github issues can be created out of the list and linked there
+* features and requirements not to be described there, use Wiki for that
+* contact our community to make suggestions or to find out what else is needed
+
+## Development
+
+### Requirements
+
+*Knowledge that might be useful.*
+
+* symfony 1.4, Doctrine 1.2
+* PHP 5.3
+* git, github
+
+### License
+
+Probably [MIT-License](http://www.symfony-project.org/license), just as symfony.
+
+### Coding Standards
+
+See [symfony Coding Standards](http://trac.symfony-project.org/wiki/HowToContributeToSymfony#CodingStandards) for now.
+
