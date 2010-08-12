@@ -140,7 +140,7 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
    */
   public function getTaxAmount($region)
   {
-    return $this->getNetPrice() * $this->getTaxRate($region);
+    return round($this->getNetPrice() * $this->getTaxRate($region), 2);
   }
   
   /**
@@ -150,7 +150,7 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
    */
   public function getGrossPrice($region)
   {
-    return $this->getNetPrice() + $this->getTaxAmount($region);
+    return round($this->getNetPrice() + $this->getTaxAmount($region), 2);
   }
   
   /**

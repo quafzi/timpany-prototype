@@ -32,11 +32,29 @@
           	<td class="link"><?php echo link_to(__('remove', null, 'timpanyCart'), '@timpany_cart_remove?product='.$item['product']->getSlug()) ?></td>
           </tr>
         <?php endforeach ?>
+        <tr class="cart-totals first">
+          <th colspan="6">
+            Nettosumme:
+          </th>
+          <td>
+            <?php echo format_currency($cart->getNetSum()) ?> €
+          </td>
+          <td />
+        </tr>
+        <tr class="cart-totals">
+          <th colspan="6">
+            Bruttosumme:
+          </th>
+          <td>
+            <?php echo format_currency($cart->getGrossSum()) ?> €
+          </td>
+          <td />
+        </tr>
       </tbody>
     </table>
-    Nettosumme: <?php echo format_currency($cart->getNetSum()) ?> €<br />
-    Bruttosumme: <?php echo format_currency($cart->getGrossSum()) ?> €
-    <?php echo button_to('&crarr;', '@timpany_checkout', array('title' => __('buy now', null, 'timpanyCart')))?>
+    <div class="link-to-checkout">
+      <?php echo button_to('&crarr;', '@timpany_checkout', array('title' => __('buy now', null, 'timpanyCart'), 'class' => 'button')) ?>
+    </div>
   <?php endif; ?>
   
   <div><?php echo link_to(__('find more', null, 'timpanyCart'), '@timpany_index') ?></div>

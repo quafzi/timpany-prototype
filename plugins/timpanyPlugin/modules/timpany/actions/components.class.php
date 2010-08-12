@@ -3,7 +3,7 @@ class timpanyComponents extends sfComponents
 {
   public function executeCartInfo()
   {
-    $this->item_count = timpanyCart::getInstance($this->getUser())->getItemCount();
+    $this->product_count = timpanyCart::getInstance($this->getUser())->getProductCount();
   }
   
   public function executeUserInfo()

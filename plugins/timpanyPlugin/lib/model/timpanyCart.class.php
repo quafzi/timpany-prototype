@@ -142,6 +142,15 @@ class timpanyCart
     $this->setItems($items);
   }
   
+  public function getProductCount()
+  {
+    $count = 0;
+  	foreach ($this->getContent() as $item_count) {
+  	  $count += $item_count;
+  	}
+  	return $count;
+  }
+  
   public function getItemCount()
   {
     return count($this->getContent());

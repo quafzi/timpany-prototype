@@ -33,3 +33,32 @@ table.cart-items th, table.cart-items td
 {
     padding: 3px;
 }
+
+table.cart-items td.product-count,
+table.cart-items td.product-price,
+table.cart-items td.item-netsum,
+table.cart-items td.item-grosssum,
+table.cart-items tr.cart-totals
+{
+	text-align: right;
+}
+
+table.cart-items tr.cart-totals td,
+table.cart-items tr.cart-totals th
+{
+	border: none;
+}
+
+.link-to-checkout
+{
+  text-align: right;
+}
+
+.link-to-checkout button,
+.link-to-checkout input.button
+{
+  margin-top:       10px;
+  background-color: #4A3420;
+  color:            #faf4e0;
+  width:            84px;
+}
