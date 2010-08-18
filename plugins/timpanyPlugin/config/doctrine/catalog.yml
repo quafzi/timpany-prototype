@@ -1,5 +1,7 @@
 options:
-  type: INNODB
+  type:    INNODB
+  charset: utf8
+  collate: utf8_unicode_ci
   
 timpanyProduct:
   tableName: timpany_product
@@ -11,7 +13,7 @@ timpanyProduct:
       builder: [ sfTools, slugify ]
   columns:
     id:
-      type: integer(4)
+      type: integer(11)
       primary: true
       autoincrement: true
     name:
@@ -27,13 +29,34 @@ timpanyProduct:
     class_name:
       type: string(150)
       default: "timpanyProduct"
-#  relations:
-#    CartUsers:
-#      class: sfGuardUser
-#      local: product_id
-#      foreign: sf_guard_user_id
-#      refClass: timpanyCart
-#      foreignAlias: Products
+  relations:
+    CartUsers:
+      class:        sfGuardUser
+      local:        product_id
+      foreign:      sf_guard_user_id
+      refClass:     timpanyCartItem
+      foreignAlias: Products
+      
+timpanyCartItem:
+  tableName: timpany_cart_items
+  actAs:
+    Timestampable: ~
+  columns:
+    product_id:
+      type: integer(11)
+    sf_guard_user_id:
+      type: integer(4)
+    count:
+      type: integer(3)
+  relations:
+    Product:
+      class: timpanyProduct
+      foreignAlias: Product
+      local: product_id
+    User:
+      class: sfGuardUser
+      foreignAlias: CartItems
+      local: sf_guard_user_id
       
 timpanyCategory:
   tableName: timpany_category
@@ -45,7 +68,7 @@ timpanyCategory:
       builder: [ sfTools, slugify ]
   columns:
     id:
-      type: integer(4)
+      type: integer(11)
       primary: true
       autoincrement: true
     name:
@@ -64,6 +87,6 @@ timpanyCategoryProduct:
   tableName: timpany_category_product
   columns:
     product_id:
-      type: integer(4)
+      type: integer(11)
     category_id:
-      type: integer(4)
+      type: integer(11)

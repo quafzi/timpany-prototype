@@ -47,6 +47,27 @@ class timpanyCart
       $items[$product->getSlug()] += $count;
     }
     $this->setItems($items);
+    if (self::$_instance->_user->isAuthenticated()) {
+	    $cartItems = self::$_instance->_user->getGuardUser()->getCartItems();
+	    $cartItemRelation   = $cartItems->getRelation('timpanyCartItem');
+      $cartItemCollection = $cartItemRelation['table']->findBySfGuardUserId(
+											        self::$_instance->_user->getGuardUser()->getId()
+											      );
+	    $is_new_item = true;
+			foreach ($cartItemCollection as $cartItem) {
+				if ($product->getId() === $cartItem->getProductId()) {
+					$is_new_item = false;
+					break;
+				}
+			}
+	    if ($is_new_item) {
+		    $cartItem = new timpanyCartItem();
+		    $cartItem->setProduct($product);
+		    $cartItem->setUser(self::$_instance->_user->getGuardUser());
+	    }
+	    $cartItem->setCount($items[$product->getSlug()]);
+	    $cartItem->save();
+    }
   }
   
   /**
@@ -86,12 +107,25 @@ class timpanyCart
     return array();
   }
   
+  /**
+   * get count of a specific product
+   * @param timpanyProductInterface $product
+   * @return int Count of product
+   */
   public function getCountOfProduct(timpanyProductInterface $product)
   {
     $content = $this->getContent();
     return $content[$product->getSlug()];
   }
   
+  /**
+   * get cart items
+   * @return array Array with following structure:
+   *       'count'     => integer,
+   *       'product'   => timpanyProductInterface,
+   *       'net_sum'   => float
+   *       'gross_sum' => float
+   */
   public function getItems()
   {
     $items = array();
@@ -113,6 +147,10 @@ class timpanyCart
     return $items;
   }
   
+  /**
+   * get net sum
+   * @return float
+   */
   public function getNetSum()
   {
     $net_sum = 0;
@@ -122,6 +160,10 @@ class timpanyCart
     return $net_sum;
   }
   
+  /**
+   * get gross sum
+   * @return float
+   */
   public function getGrossSum()
   {
     $gross_sum = 0;
@@ -142,6 +184,10 @@ class timpanyCart
     $this->setItems($items);
   }
   
+  /**
+   * get count of products
+   * @return int
+   */
   public function getProductCount()
   {
     $count = 0;
@@ -151,11 +197,20 @@ class timpanyCart
   	return $count;
   }
   
+  /**
+   * get count of items
+   * @return int
+   */
   public function getItemCount()
   {
     return count($this->getContent());
   }
   
+  /**
+   * turn cart into an array
+   * @param boolean $deep
+   * @return array
+   */
   public function toArray($deep=true)
   {
     return $this->getContent();
