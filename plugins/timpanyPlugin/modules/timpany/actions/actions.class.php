@@ -49,7 +49,9 @@ class timpanyActions extends sfActions
     $cart = timpanyCart::getInstance($this->getUser());
     if (0 < $cart->getItemCount()) {
       $this->order = timpanyOrderTable::getInstance()->createOrder($cart);
+      /* payment requires a persistant order */
       $this->order->save();
+      $this->order->createPayment();
       $cart->clear();
     } else {
       $this->redirect('@timpany_cart');

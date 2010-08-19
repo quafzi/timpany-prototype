@@ -20,6 +20,7 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfWebBrowserPlugin');
     $this->enablePlugins('sfFeed2Plugin');
     $this->enablePlugins('sfSyncContentPlugin');
+    $this->enablePlugins('jmsPaymentPlugin');
     $this->enablePlugins('timpanyPlugin');
   }
 }

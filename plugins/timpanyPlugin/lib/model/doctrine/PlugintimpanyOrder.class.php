@@ -12,4 +12,27 @@
  */
 abstract class PlugintimpanyOrder extends BasetimpanyOrder
 {
+	protected $gross_sum=null;
+	
+  public function createPayment()
+  {
+  	$paymentData = PaymentDataTable::getInstance()->create(array(
+  		'method_class_name' => 'PaypalPayment',
+  		'subject'			=> 'Order #' . $this->getId()
+  	));
+    $payment = Payment::create($this->getGrossSum(), 'EUR', $paymentData);
+    $payment->setOrder($this);
+    $payment->save();
+  }
+  
+  public function getGrossSum()
+  {
+  	if (true or is_null($this->gross_sum)) {
+	  	$this->gross_sum=0;
+	    foreach ($this->getItems() as $item) {
+	    	$this->gross_sum += $item->getGrossSum();
+	    } 
+  	}
+  	return $this->gross_sum; 	
+  }
 }

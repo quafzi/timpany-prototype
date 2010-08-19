@@ -1,0 +1,35 @@
+options:
+  type:    INNODB
+  charset: utf8
+  collate: utf8_unicode_ci
+  
+timpanyTax:
+  tableName: timpany_tax
+  columns:
+    id:
+      type: integer(11)
+      primary: true
+      autoincrement: true
+    name:
+      type: string(150)
+    tax_percent:
+      type: float
+    region:
+      type: string(10)
+    tax_class_id:
+      type: integer(3)
+  relations:
+    TaxClass:
+      class: timpanyTaxClass
+      local: tax_class_id
+      foreignAlias: Tax
+
+timpanyTaxClass:
+  tableName: timpany_tax_class
+  columns:
+    id:
+      type: integer(3)
+      primary: true
+      autoincrement: true
+    name:
+      type: string(150)

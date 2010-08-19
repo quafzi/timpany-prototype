@@ -29,12 +29,18 @@ timpanyProduct:
     class_name:
       type: string(150)
       default: "timpanyProduct"
+    tax_class_id:
+      type: integer(3)
   relations:
     CartUsers:
       class:        sfGuardUser
       local:        product_id
       foreign:      sf_guard_user_id
       refClass:     timpanyCartItem
+      foreignAlias: Products
+    TaxClass:
+      class:        timpanyTaxClass
+      local:        tax_class_id
       foreignAlias: Products
       
 timpanyCartItem:

@@ -94,15 +94,11 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
   /**
    * get tax class
    * 
-   * @todo NOT YET IMPLEMENTED
-   * 
    * @return timpanyTaxClass
    */
   public function getTaxClass()
   {
-    return null;
-    
-    return parent::_get('tax_class');
+    return parent::_get('TaxClass');
   }
   
   /**
@@ -114,9 +110,9 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
    * 
    * @return float
    */
-  public function getTaxRate($region)
+  public function getTaxRate($region='de')
   {
-    return 0.19;
+    return $this->getTaxClass()->getTaxRate();
   }
   
   /**
@@ -126,7 +122,7 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
    * 
    * @return float
    */
-  public function getTaxPercent($region)
+  public function getTaxPercent($region='de')
   {
     return 100.0 * $this->getTaxRate($region);
   }
@@ -138,7 +134,7 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
    * 
    * @return float
    */
-  public function getTaxAmount($region)
+  public function getTaxAmount($region='de')
   {
     return round($this->getNetPrice() * $this->getTaxRate($region), 2);
   }
@@ -148,7 +144,7 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
    *
    * @return float
    */
-  public function getGrossPrice($region)
+  public function getGrossPrice($region='de')
   {
     return round($this->getNetPrice() + $this->getTaxAmount($region), 2);
   }
@@ -162,14 +158,16 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
     return new timpanyOrderItem($this->getData());
   }
   
-  public function toJson()
+  public function toJson($region='de')
   {
     return json_encode(array(
         'name'           => $this->getName(),
         'article_number' => $this->getArticleNumber(),
         'description'    => $this->getDescription(),
         'properties'     => $this->getProperties(),
-        'net_price'      => $this->getNetPrice()
+        'net_price'      => $this->getNetPrice(),
+        'gross_price'    => $this->getGrossPrice($region),
+        'tax_rate'       => $this->getTaxRate($region)
     ));
   }
 }

@@ -1,0 +1,21 @@
+timpanyTax:
+  de_full:
+    id: 1
+    name: "Volle Mehrwertsteuer"
+    tax_percent: 19.0
+    region: "de"
+    tax_class_id: 1
+  de_reduced:
+    id: 2
+    name: "Reduzierte Mehrwertsteuer"
+    tax_percent: 7.0
+    region: "de"
+    tax_class_id: 2
+
+timpanyTaxClass:
+  full:
+    id: 1
+    name: "Full VAT"
+  reduced:
+    id: 2
+    name: "Reduced VAT"

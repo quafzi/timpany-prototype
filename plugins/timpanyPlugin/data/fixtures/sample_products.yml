@@ -6,6 +6,7 @@ timpanyProduct:
     article_number: "4029764001807"
     net_price: 0.84
     inventory: 24
+    tax_class_id: 2
   timpany:
     name: "Timpany Shop"
     slug: "timpany-shop"
@@ -14,3 +15,4 @@ timpanyProduct:
     net_price: 0
     inventory: 0
     class_name: "timpanyDownloadableProduct"
+    tax_class_id: 1

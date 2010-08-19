@@ -12,5 +12,57 @@
  */
 abstract class PlugintimpanyOrderItem extends BasetimpanyOrderItem
 {
+	protected $frozen_data=array();
+	
+	/**
+	 * extend magic getter to access frozen product data
+	 * 
+	 * @throws Doctrine_Record_UnknownPropertyException
+   *
+	 * @see lib/vendor/symfony/lib/plugins/sfDoctrinePlugin/lib/record/sfDoctrineRecord::__call()
+	 */
+  public function __call($method, $args)
+  {
+  	if ('get' == substr($method, 0, 3)) {
+  		$property = sfInflector::underscore(substr($method, 3));
+	  	try {
+	  		return parent::get($property);
+	  	} catch (Doctrine_Record_UnknownPropertyException $e) {
+	  		return $this->getFrozen($property);
+	  	}
+	  	throw $e;
+  	}
+  }
+  
+  public function getFrozen($key)
+  {
+  	if (0 == count($this->frozen_data) and false == is_null(parent::getFrozenData())) {
+  	  $this->frozen_data = json_decode(parent::getFrozenData(), true);
+  	}
+  	if (false == is_array($this->frozen_data)) {
+  		$this->frozen_data = array();
+  	}
+  	if (false == is_null($key)) {
+  	  if (array_key_exists($key, $this->frozen_data)) {
+  	 	  return $this->frozen_data[$key];
+  	  } else {
+  	  	throw new Doctrine_Record_UnknownPropertyException(sprintf(
+  	  	  'Unknown method %s::%s',
+  	  	  get_class($this),
+  	  	  'get' . sfInflector::camelize($key)
+    	  ));
+  	  }
+  	}
+  	return $this->frozen_data;
+  }
+  
+  public function getGrossSum()
+  {
+  	return $this->getCount() * $this->getGrossPrice();
+  }
 
+  public function getNetSum()
+  {
+    return $this->getCount() * $this->getNetPrice();
+  }
 }
