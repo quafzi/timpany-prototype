@@ -26,11 +26,31 @@ class timpanyCart
     if (is_null(self::$_instance)) {
       self::$_instance = new timpanyCart();
       self::$_instance->_user = $sfUser;
+	    if (self::$_instance->_user->isAuthenticated()) {
+	    	self::$_instance->loadExistingCart();
+	    }
     }
     return self::$_instance;
   }
   protected function __construct() {}
   private function __clone() {}
+
+  /**
+   * load existing cart of the user from the database
+   */
+  public function loadExistingCart()
+  {
+    $cartItems = $this->_user->getGuardUser()->getCartItems();
+    $cartItemRelation   = $cartItems->getRelation('timpanyCartItem');
+    $cartItemCollection = $cartItemRelation['table']->findBySfGuardUserId(
+                            $this->_user->getGuardUser()->getId()
+                          );
+    $items = $this->getContent();
+    foreach ($cartItemCollection as $cartItem) {
+      $items[$cartItem->getProduct()->getSlug()] = $cartItem->getCount();
+    }
+    $this->setItems($items);
+  }
   
   /**
    * add a product to the cart
@@ -68,6 +88,36 @@ class timpanyCart
       $items,
       timpanyCart::SESSION_NS
     );
+    if (self::$_instance->_user->isAuthenticated()) {
+      $cartItems = self::$_instance->_user->getGuardUser()->getCartItems();
+      $cartItemRelation   = $cartItems->getRelation('timpanyCartItem');
+      $cartItemCollection = $cartItemRelation['table']->findBySfGuardUserId(
+                              self::$_instance->_user->getGuardUser()->getId()
+                            );
+      $remaining_items = $items;
+      foreach ($cartItemCollection as $key=>$cartItem) {
+      	if (false == isset($items[$cartItem->getProduct()->getSlug()]))
+      	{
+      		$cartItemCollection->remove($key);
+      	} else {
+          $cartItem->setCount($items[$cartItem->getProduct()->getSlug()]);
+        }
+        unset($remaining_items[$cartItem->getProduct()->getSlug()]);
+      }
+      foreach ($remaining_items as $product_slug=>$count) {
+        $product = timpanyProductTable::getInstance()->findOneBySlug($product_slug);
+        if (!$product) {
+        	var_dump('Kein Produkt gefunden für Slug', $product_slug);exit;
+        	continue;
+        }
+        $cartItem = new timpanyCartItem();
+        $cartItem->setProductId($product->getId());
+        $cartItem->setUser(self::$_instance->_user->getGuardUser());
+	      $cartItem->setCount($items[$product_slug]);
+	      $cartItemCollection->add($cartItem);
+      }
+      $cartItemCollection->save();
+    }
   }
   
   /**
