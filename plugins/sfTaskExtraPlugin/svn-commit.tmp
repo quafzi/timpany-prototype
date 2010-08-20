@@ -1,0 +1,16 @@
+[sfTaskExtraPlugin] added propel:build-app-forms and propel:build-app-filters tasks
+--This line, and those below, will be ignored--
+
+M    package.xml.tmpl
+A  + lib/task/propel
+D    lib/task/propel/sfTaskExtraDoctrineBaseTask.class.php
+A  + lib/task/propel/sfPropelBuildAppFormsTask.class.php
+A  + lib/task/propel/sfPropelBuildAppFiltersTask.class.php
+A  + lib/task/propel/skeleton/app_form_filter
+D    lib/task/propel/sfDoctrineBuildAppFormsTask.class.php
+D    lib/task/propel/sfDoctrineBuildAppFiltersTask.class.php
+A  + lib/task/propel/sfTaskExtraPropelBaseTask.class.php
+M    lib/task/doctrine/sfTaskExtraDoctrineBaseTask.class.php
+M    lib/task/doctrine/sfDoctrineBuildAppFormsTask.class.php
+M    lib/task/doctrine/sfDoctrineBuildAppFiltersTask.class.php
+M    README
