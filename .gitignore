@@ -13,3 +13,5 @@ lib/model/doctrine/timpanyPlugin
 .project
 .settings
 lib/form/doctrine/timpanyPlugin/
+lib/form/doctrine/jmsPaymentPlugin/
+lib/model/doctrine/jmsPaymentPlugin/
