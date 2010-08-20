@@ -265,4 +265,13 @@ class timpanyCart
   {
     return $this->getContent();
   }
+  
+  /**
+   * if cart is empty
+   * @return boolean
+   */
+  public function isEmpty()
+  {
+  	return 0 == $this->getItemCount();
+  }
 }

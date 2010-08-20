@@ -22,5 +22,12 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfSyncContentPlugin');
     $this->enablePlugins('jmsPaymentPlugin');
     $this->enablePlugins('timpanyPlugin');
+    $this->enablePlugins('sfTaskExtraPlugin');
   }
+  
+  public function setupPlugins()
+  {
+    $this->pluginConfigurations['timpanyPlugin']->connectTests();
+  }
+  
 }
