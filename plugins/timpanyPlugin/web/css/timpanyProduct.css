@@ -104,3 +104,8 @@ div#product-show h2
     position:    absolute;
     width:       200px;
 }
+
+input.input_product_count
+{
+    text-align: right;
+    width:      30px;

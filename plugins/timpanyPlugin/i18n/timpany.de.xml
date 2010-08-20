@@ -19,6 +19,10 @@
         <target>Warenkorb</target>
       </trans-unit>
       <trans-unit>
+        <source>Count</source>
+        <target>>Anzahl</target>
+      </trans-unit>
+      <trans-unit>
         <source>add to cart</source>
         <target>in den Warenkorb</target>
       </trans-unit>
