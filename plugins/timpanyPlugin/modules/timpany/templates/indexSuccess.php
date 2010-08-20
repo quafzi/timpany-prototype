@@ -17,12 +17,12 @@
     		<div class="product-price">
               <dl>
                 <dt><?php echo __('net price', null, 'timpany') ?></dt>
-                <dd><?php echo format_currency($product->getNetPrice()) ?> €</dd>
+                <dd><?php echo format_currency(round($product->getNetPrice(), 2), 'EUR') ?></dd>
               </dl>
               <dl>
                 <dt><?php echo __('gross price', null, 'timpany') ?></dt>
                 <dd>
-                  <?php echo format_currency($product->getGrossPrice(0)) ?> €
+                  <?php echo format_currency(round($product->getGrossPrice(0), 2), 'EUR') ?>
                   <div class="vat-notice">
                     (<?php echo __('incl. {tax_percent}% VAT', array('{tax_percent}' => $product->getTaxPercent(0)), 'timpany') ?>)
                   </div>

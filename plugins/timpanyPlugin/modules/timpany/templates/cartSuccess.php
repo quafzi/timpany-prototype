@@ -24,11 +24,11 @@
           <tr>
           	<td class="product-count"><?php echo $item['count'] ?></td>
           	<td class="product-name"><?php echo link_to($item['product']->getName(), '@timpany_product?category=xxx&product=' . $item['product']->getSlug()) ?></td>
-          	<td class="product-price"><?php echo format_currency($item['product']->getNetPrice()) ?> €</td>
-          	<td class="product-price"><?php echo format_currency($item['product']->getGrossPrice(0)) ?> €</td>
+          	<td class="product-price"><?php echo format_currency(round($item['product']->getNetPrice(), 2), 'EUR') ?></td>
+          	<td class="product-price"><?php echo format_currency(round($item['product']->getGrossPrice(0), 2), 'EUR') ?></td>
           	<td class="vat-notice">(inkl. <?php echo $item['product']->getTaxPercent(0) ?>% MwSt.)</td>
-          	<td class="item-netsum"><?php echo format_currency($item['net_sum']) ?> €</td>
-          	<td class="item-grosssum"><?php echo format_currency($item['gross_sum']) ?> €</td>
+          	<td class="item-netsum"><?php echo format_currency(round($item['net_sum'], 2), 'EUR') ?></td>
+          	<td class="item-grosssum"><?php echo format_currency(round($item['gross_sum'], 2), 'EUR') ?></td>
           	<td class="link"><?php echo link_to(__('remove', null, 'timpanyCart'), '@timpany_cart_remove?product='.$item['product']->getSlug()) ?></td>
           </tr>
         <?php endforeach ?>
@@ -37,7 +37,7 @@
             Nettosumme:
           </th>
           <td>
-            <?php echo format_currency($cart->getNetSum()) ?> €
+            <?php echo format_currency(round($cart->getNetSum(), 2), 'EUR') ?>
           </td>
           <td />
         </tr>
@@ -46,7 +46,7 @@
             Bruttosumme:
           </th>
           <td>
-            <?php echo format_currency($cart->getGrossSum()) ?> €
+            <?php echo format_currency(round($cart->getGrossSum(), 2), 'EUR') ?>
           </td>
           <td />
         </tr>

@@ -13,13 +13,15 @@ class timpanyActions extends sfActions
   public function executeShowProduct(sfWebRequest $request)
   {
     $this->product = timpanyProductTable::getInstance()->findOneBySlug($request->getParameter('product'));
+    $this->form = new timpanyProductToCartForm();
   }
   
   public function executeAddToCart(sfWebRequest $request)
   {
     $product = timpanyProductTable::getInstance()->findOneBySlug($request->getParameter('product'));
+    $count = $request->getPostParameter('timpany_add_to_cart[count]', 1);
     $this->cart = timpanyCart::getInstance($this->getUser());
-    $this->cart->addProduct($product);
+    $this->cart->addProduct($product, $count);
     $this->getUser()->setFlash('last_added_product', $product->getSlug());
     $this->redirect('@timpany_cart');
   }
