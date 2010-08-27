@@ -13,15 +13,18 @@
 
 * shop prototype integration to apostrophe project: [annismckenzie]
 * rounding gross/net/sum: [nogo]
+  * check when we have to round prices
 * organization topics and docs: [smile]
-* commit reviews: all
+* prepare workflows: [wireshark]
+* commit/code reviews: all
 	* [timpany](http://github.com/quafzi/timpany)
 	* [apostrophe now](http://github.com/annismckenzie)
 
-
+## Contributors
 [annismckenzie]: http://github.com/annismckenzie
 [nogo]: http://github.com/nogo
 [quafzi]: http://github.com/quafzi
 [smile]: http://github.com/smile
+[wireshark]: http://github.com/wireshark
 
 [^issues]: <http://github.com/quafzi/timpany/issues>
