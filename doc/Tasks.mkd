@@ -1,5 +1,5 @@
 # Tasks and Topics for timpany
-*last updated 9th August 2010*
+*last updated 27th August 2010*
 
 ## Topics
 *for next meeting and online discussions*
@@ -20,7 +20,7 @@
 	* [timpany](http://github.com/quafzi/timpany)
 	* [apostrophe now](http://github.com/annismckenzie)
 
-## Contributors
+
 [annismckenzie]: http://github.com/annismckenzie
 [nogo]: http://github.com/nogo
 [quafzi]: http://github.com/quafzi
