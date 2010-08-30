@@ -12,23 +12,29 @@ timpanyOrder:
       type: integer(11)
       primary: true
       autoincrement: true
-    shipping_method:
-      type: string(150)
-    shipping_data:
+    billing_address:
       type: text
+    order_state_id:
+      type: integer(3)
+    net_sum:
+      type: float
     payment_id:
       type: integer(11)
       unsigned: true
-    net_sum:
-      type: float
-    billing_address:
-      type: text
     shipping_address:
       type: text
+    shipping_data:
+      type: text
+    shipping_method:
+      type: string(150)
   relations:
     Payment:
       local: payment_id
       foreignAlias: Order
+      foreignType: one
+    State:
+      class: timpanyOrderState
+      local: order_state_id
       foreignType: one
 
 timpanyOrderItem:
@@ -54,3 +60,21 @@ timpanyOrderItem:
     CurrentProductVersion:
       class: timpanyProduct
       local: product_id
+
+timpanyOrderState:
+  tableName: timpany_order_state
+  columns:
+    id:
+      type: integer(3)
+      primary: true
+      autoincrement: true
+    is_ordered:
+      type: boolean
+    is_paid:
+      type: boolean
+    is_sent:
+      type: boolean
+    is_closed:
+      type: boolean
+    name:
+      type: string(50)

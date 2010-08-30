@@ -1,14 +1,7 @@
 <?php
 
-interface timpanyCartInterface
+interface timpanyOrderInterface
 {
-  /**
-   * get singleton instance
-   * @param sfUser $sfUser
-   * @return timpanyCartInterface
-   */
-  public static function getInstance(sfUser $sfUser);
-  
   /**
    * add a product to the cart
    * 
@@ -87,4 +80,10 @@ interface timpanyCartInterface
    * @return array
    */
   public function toArray($deep=true);
+  
+  /**
+   * get order state
+   * @return timpanyOrderState
+   */
+  public function getState();
 }

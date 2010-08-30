@@ -1,0 +1,73 @@
+timpanyOrderState:
+  cart:
+    id:         1
+    name:       "cart"
+    is_ordered: 0
+    is_paid:    0
+    is_sent:    0
+    is_closed:  0
+  unpaid_unsent:
+    id:         2
+    name:       "unpaid_unsent"
+    is_ordered: 1
+    is_paid:    0
+    is_sent:    0
+    is_closed:  0
+  unpaid_sent:
+    id:         3
+    name:       "unpaid_sent"
+    is_ordered: 1
+    is_paid:    0
+    is_sent:    1
+    is_closed:  0
+  paid_sent:
+    id:         4
+    name:       "paid_sent"
+    is_ordered: 1
+    is_paid:    1
+    is_sent:    1
+    is_closed:  0
+  paid_unsent:
+    id:         5
+    name:       "paid_unsent"
+    is_ordered: 1
+    is_paid:    1
+    is_sent:    0
+    is_closed:  0
+  closed:
+    id:         6
+    name:       "closed"
+    is_ordered: 1
+    is_paid:    1
+    is_sent:    1
+    is_closed:  1
+
+  canceled_closed:
+    id:         7
+    name:       "canceled_closed"
+    is_ordered: 0
+    is_paid:    0
+    is_sent:    0
+    is_closed:  1
+  paid_canceled:
+    id:         8
+    name:       "paid_canceled"
+    is_ordered: 0
+    is_paid:    1
+    is_sent:    0
+    is_closed:  0
+  sent_canceled:
+    id:         9
+    name:       "sent_canceled"
+    is_ordered: 0
+    is_paid:    0
+    is_sent:    1
+    is_closed:  0
+  sent_paid_canceled:
+    id:         10
+    name:       "sent_paid_canceled"
+    is_ordered: 0
+    is_paid:    1
+    is_sent:    1
+    is_closed:  0
+    

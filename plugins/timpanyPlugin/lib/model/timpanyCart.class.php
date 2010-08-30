@@ -1,6 +1,6 @@
 <?php
 
-class timpanyCart
+class timpanyCart implements timpanyOrderInterface
 {
   const SESSION_NS = 'timpanyCart';
   
@@ -17,6 +17,11 @@ class timpanyCart
   protected $_user;
   
   /**
+   * order state
+   */
+  protected $_orderState;
+  
+  /**
    * get singleton instance
    * @param sfUser $sfUser
    * @return timpanyCart
@@ -29,6 +34,9 @@ class timpanyCart
 	    if (self::$_instance->_user->isAuthenticated()) {
 	    	self::$_instance->loadExistingCart();
 	    }
+	    self::$_instance->setState(
+	      timpanyOrderStateTable::getInstance()->findOneByName('cart')
+	    );
     }
     return self::$_instance;
   }
@@ -273,5 +281,31 @@ class timpanyCart
   public function isEmpty()
   {
   	return 0 == $this->getItemCount();
+  }
+  
+  /**
+   * get order state
+   * @return timpanyOrderState
+   */
+  public function getState()
+  {
+  	if ($this instanceof Doctrine_Record)
+  	{
+  	  return parent::_get('OrderState');
+  	}
+  	return $this->_orderState;
+  }
+  
+  /**
+   * get order state
+   * @return timpanyOrderState
+   */
+  public function setState(timpanyOrderState $state)
+  {
+    if ($this instanceof Doctrine_Record)
+    {
+      parent::_set('OrderState', $state);
+    }
+    $this->_orderState = $state;
   }
 }
