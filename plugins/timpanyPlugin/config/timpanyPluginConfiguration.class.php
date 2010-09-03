@@ -10,7 +10,8 @@ class timpanyPluginConfiguration extends sfPluginConfiguration
 {
   /**
    * @see sfPluginConfiguration
-   */  public function initialize()
+   */
+  public function initialize()
   {
     // These were merged in from the separate plugins. TODO: clean up a little.
     

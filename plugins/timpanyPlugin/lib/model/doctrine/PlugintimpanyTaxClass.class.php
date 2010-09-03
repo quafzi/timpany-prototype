@@ -33,9 +33,8 @@ abstract class PlugintimpanyTaxClass extends BasetimpanyTaxClass
    */
   public function getTaxPercent($region='de')
   {
-  	return timpanyTaxTable::getInstance()
-  	  ->findByDql('tax_class_id = ' . $this->getId() . ' AND region = "' . $region . '"')
-  	  ->getFirst()
-  	  ->getTaxPercent();
+    /** @var PlugintimpanyTax $first **/
+    $first = timpanyTaxTable::getInstance()->retrieveByIdAndRegion($this->id, $region)->getFirst();
+  	return ($first !== null) ? $first->getTaxPercent() : 0;
   }
 }
