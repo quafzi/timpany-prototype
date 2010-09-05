@@ -1,0 +1,4 @@
+sfGuardUser:
+  testUser:
+    id: 1
+    username: testuser

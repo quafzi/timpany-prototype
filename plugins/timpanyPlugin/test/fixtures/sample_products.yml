@@ -1,0 +1,20 @@
+timpanyProduct:
+  mate:
+    id: 1
+    name: "Club Mate"
+    slug: "club-mate"
+    description: "Koffeinhaltiges Erfrischungsgetränk auf Mate-Basis"
+    article_number: "4029764001807"
+    net_price: 0.84
+    inventory: 24
+    tax_class_id: 2
+  timpany:
+    id: 2
+    name: "Timpany Shop"
+    slug: "timpany-shop"
+    description: "Online-Shop auf Basis von Symfony"
+    article_number: "4223"
+    net_price: 0
+    inventory: 0
+    class_name: "timpanyDownloadableProduct"
+    tax_class_id: 1
