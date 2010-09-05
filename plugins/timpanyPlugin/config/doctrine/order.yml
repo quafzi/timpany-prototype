@@ -21,6 +21,8 @@ timpanyOrder:
     payment_id:
       type: integer(11)
       unsigned: true
+    sf_guard_user_id:
+      type: integer(4)
     shipping_address:
       type: text
     shipping_data:
@@ -35,6 +37,10 @@ timpanyOrder:
     State:
       class: timpanyOrderState
       local: order_state_id
+      foreignType: one
+    User:
+      class: sfGuardUser
+      local: sf_guard_user_id
       foreignType: one
 
 timpanyOrderItem:

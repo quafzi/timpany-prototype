@@ -37,7 +37,8 @@ class timpanyActions extends sfActions
   public function executeRemoveCartItem(sfWebRequest $request)
   {
     $this->cart = timpanyCart::getInstance($this->getUser());
-    $this->cart->removeItemBySlug($request->getParameter('product'));
+    $product = timpanyProductTable::getInstance()->findOneBySlug($request->getParameter('product'));
+    $this->cart->removeItem($product);
     $this->redirect('@timpany_cart');
   }
   

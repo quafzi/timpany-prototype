@@ -22,12 +22,6 @@ interface timpanyCartInterface
   public function setItems($items);
   
   /**
-   * retrieve contained products
-   * @return array (product_slug => count)
-   */
-  public function getContent();
-  
-  /**
    * get count of a specific product
    * @param timpanyProductInterface $product
    * @return int Count of product
@@ -60,7 +54,7 @@ interface timpanyCartInterface
    * remove item from cart
    * @param string $product_slug
    */
-  public function removeItemBySlug($product_slug);
+  public function removeItem(timpanyProductInterface $product);
   
   /**
    * get count of products

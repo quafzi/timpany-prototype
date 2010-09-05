@@ -12,5 +12,5 @@
  */
 abstract class PlugintimpanyOrderState extends BasetimpanyOrderState
 {
-
+  const CART_STATE_ID = 1;
 }

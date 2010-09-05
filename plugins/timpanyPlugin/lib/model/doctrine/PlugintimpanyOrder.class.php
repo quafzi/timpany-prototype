@@ -40,6 +40,11 @@ abstract class PlugintimpanyOrder extends BasetimpanyOrder implements timpanyOrd
     return $payment;
   }
   
+  public function getState()
+  {
+  	return parent::_get('state');
+  }
+  
   public function getGrossSum()
   {
   	if (true or is_null($this->gross_sum)) {
@@ -49,6 +54,10 @@ abstract class PlugintimpanyOrder extends BasetimpanyOrder implements timpanyOrd
 	    } 
   	}
   	return $this->gross_sum; 	
+  }
+  
+  public function addProduct(timpanyProductInterface $product, $count=1) {
+  	return $this->addItem($product, $count);
   }
   
   /**
@@ -79,5 +88,111 @@ abstract class PlugintimpanyOrder extends BasetimpanyOrder implements timpanyOrd
       }
       $item->setCount($item->setCount() + $count);
       $this->save();
+  }
+  
+  /**
+   * clear cart
+   * 
+   * FIXME: not yet implemented
+   */
+  public function clear()
+  {
+  }
+  
+  /**
+   * set cart items
+   * @param array $items
+   * 
+   * FIXME: not yet implemented
+   */
+  public function setItems($items)
+  {
+  }
+  
+  /**
+   * get count of a specific product
+   * @param timpanyProductInterface $product
+   * 
+   * @return int Count of product
+   * 
+   * FIXME: not yet implemented
+   */
+  public function getCountOfProduct(timpanyProductInterface $product)
+  {
+  	
+  }
+
+  /**
+   * get cart items
+   * @return array Array with following structure:
+   *       'count'     => integer,
+   *       'product'   => timpanyProductInterface,
+   *       'net_sum'   => float
+   *       'gross_sum' => float
+   * 
+   * FIXME: not yet implemented
+   */
+  public function getItems()
+  {
+  	
+  }
+
+  /**
+   * get net sum
+   * @return float
+   * 
+   * FIXME: not yet implemented
+   */
+  public function getNetSum()
+  {
+  	
+  }
+  
+  /**
+   * remove item from cart
+   * @param string $product_slug
+   * 
+   * FIXME: not yet implemented
+   */
+  public function removeItem(timpanyProductInterface $product)
+  {
+  	
+  }
+  
+  /**
+   * get count of products
+   * @return int
+   * 
+   * FIXME: not yet implemented
+   */
+  public function getProductCount()
+  {
+  	
+  }
+
+  /**
+   * get count of items
+   * @return int
+   * 
+   * FIXME: not yet implemented
+   */
+  public function getItemCount()
+  {
+  	
+  }
+  
+  /**
+   * turn order into an array
+   * 
+   * @link http://www.doctrine-project.org/documentation/manual/1_1/en/working-with-models
+   * @param boolean $deep         whether to include relations
+   * @param boolean $prefixKey    not used
+   * @return array
+   * 
+   * FIXME: not yet implemented
+   */
+  public function toArray($deep=true, $prefixKey = false)
+  {
+  	
   }
 }

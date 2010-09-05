@@ -212,12 +212,12 @@ class timpanyCart implements timpanyCartInterface
   
   /**
    * remove item from cart
-   * @param string $product_slug
+   * @param timpanyProductInterface $product
    */
-  public function removeItemBySlug($product_slug)
+  public function removeItem(timpanyProductInterface $product)
   {
     $items = $this->getContent();
-    unset($items[$product_slug]);
+    unset($items[$product->getSlug()]);
     $this->setItems($items);
   }
   
