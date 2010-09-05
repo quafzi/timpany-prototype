@@ -1,6 +1,6 @@
 <?php
 
-interface timpanyOrderInterface
+interface timpanyCartInterface
 {
   /**
    * add a product to the cart
@@ -80,10 +80,4 @@ interface timpanyOrderInterface
    * @return array
    */
   public function toArray($deep=true);
-  
-  /**
-   * get order state
-   * @return timpanyOrderState
-   */
-  public function getState();
 }

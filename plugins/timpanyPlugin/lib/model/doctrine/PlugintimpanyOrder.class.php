@@ -10,19 +10,34 @@
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class PlugintimpanyOrder extends BasetimpanyOrder
+abstract class PlugintimpanyOrder extends BasetimpanyOrder implements timpanyOrderInterface
 {
 	protected $gross_sum=null;
 	
+	/**
+	 * create payment for order
+	 * @return Payment
+	 */
   public function createPayment()
   {
+    sfContext::getInstance()->getLogger()->log('Zahlung wird angelegt', 6);
   	$paymentData = PaymentDataTable::getInstance()->create(array(
   		'method_class_name' => 'PaypalPayment',
   		'subject'			=> 'Order #' . $this->getId()
   	));
-    $payment = Payment::create($this->getGrossSum(), 'EUR', $paymentData);
+  	sfContext::getInstance()->getLogger()->log('Zahlungsdaten zusammengestellt', 6);
+    $payment = Payment::create($this->getGrossSum(), 'EUR', new PaypalPaymentData(array(
+      'subject'     => 'Order #' . $this->getId(),
+      'username'    => 'quafzi_1282422503_biz_api1.netextreme.de',
+      'password'    => '1282422508',
+      'signature'   => 'A6xwvNuPnHQVIia8cnUqI2EXX9JWA7AbKPJCGjz0MmzFT7rKMF-ZKyoj' 
+    )));
+    sfContext::getInstance()->getLogger()->log('Zahlung wurde angelegt', 6);
     $payment->setOrder($this);
+    sfContext::getInstance()->getLogger()->log('Zahlung wurde mit Bestellung verknüpft', 6);
     $payment->save();
+    sfContext::getInstance()->getLogger()->log('Zahlung gespeichert', 6);
+    return $payment;
   }
   
   public function getGrossSum()
@@ -34,5 +49,35 @@ abstract class PlugintimpanyOrder extends BasetimpanyOrder
 	    } 
   	}
   	return $this->gross_sum; 	
+  }
+  
+  /**
+   * add a product to the order
+   * 
+   * @param timpanyProductInterface $product
+   * @param int                     $count
+   */
+  public function addItem(timpanyProductInterface $product, $count)
+  {
+      $itemRelation   = $this->getTable()->getRelation('Items');
+      if ($this->exists()) {
+        $itemCollection = $itemRelation['table']->findByOrderId($this->getId());
+        $is_new_item = true;
+        foreach ($itemCollection as $item) {
+          if ($product->getId() === $item->getProductId()) {
+            $is_new_item = false;
+            break;
+          }
+        }
+      } else {
+      	$is_new_item = true;
+      }
+      if ($is_new_item) {
+        $item = new timpanyOrderItem();
+        $item->setProduct($product);
+        $item->setOrder($this);
+      }
+      $item->setCount($item->setCount() + $count);
+      $this->save();
   }
 }

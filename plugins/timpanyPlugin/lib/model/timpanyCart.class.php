@@ -1,6 +1,6 @@
 <?php
 
-class timpanyCart implements timpanyOrderInterface
+class timpanyCart implements timpanyCartInterface
 {
   const SESSION_NS = 'timpanyCart';
   
@@ -22,6 +22,11 @@ class timpanyCart implements timpanyOrderInterface
   protected $_orderState;
   
   /**
+   * @var timpanyOrder $_order
+   */
+  protected $_order;
+  
+  /**
    * get singleton instance
    * @param sfUser $sfUser
    * @return timpanyCart
@@ -32,33 +37,25 @@ class timpanyCart implements timpanyOrderInterface
       self::$_instance = new timpanyCart();
       self::$_instance->_user = $sfUser;
 	    if (self::$_instance->_user->isAuthenticated()) {
-	    	self::$_instance->loadExistingCart();
+		    self::$_instance->_order = timpanyOrderTable::getInstance()->findByDql(
+		      'sf_guard_user_id = ' . self::$_instance->_user->getGuardUser()->getId()
+		      . ' and order_state_id = ' . PlugintimpanyOrderState::CART_STATE_ID
+		    )->getFirst();
+		    if (false == self::$_instance->_order) {
+		      self::$_instance->_order = timpanyOrderTable::getInstance()->create(array(
+		        'sf_guard_user_id' => self::$_instance->_user->getGuardUser()->getId(),
+		        'order_state_id'   => PlugintimpanyOrderState::CART_STATE_ID
+		      ));
+		    }
 	    }
-	    self::$_instance->setState(
-	      timpanyOrderStateTable::getInstance()->findOneByName('cart')
-	    );
+      self::$_instance->setState(
+        timpanyOrderStateTable::getInstance()->findOneByName('cart')
+      );
     }
     return self::$_instance;
   }
   protected function __construct() {}
   private function __clone() {}
-
-  /**
-   * load existing cart of the user from the database
-   */
-  public function loadExistingCart()
-  {
-    $cartItems = $this->_user->getGuardUser()->getCartItems();
-    $cartItemRelation   = $cartItems->getRelation('timpanyCartItem');
-    $cartItemCollection = $cartItemRelation['table']->findBySfGuardUserId(
-                            $this->_user->getGuardUser()->getId()
-                          );
-    $items = $this->getContent();
-    foreach ($cartItemCollection as $cartItem) {
-      $items[$cartItem->getProduct()->getSlug()] = $cartItem->getCount();
-    }
-    $this->setItems($items);
-  }
   
   /**
    * add a product to the cart
@@ -76,25 +73,7 @@ class timpanyCart implements timpanyOrderInterface
     }
     $this->setItems($items);
     if (self::$_instance->_user->isAuthenticated()) {
-	    $cartItems = self::$_instance->_user->getGuardUser()->getCartItems();
-	    $cartItemRelation   = $cartItems->getRelation('timpanyCartItem');
-      $cartItemCollection = $cartItemRelation['table']->findBySfGuardUserId(
-											        self::$_instance->_user->getGuardUser()->getId()
-											      );
-	    $is_new_item = true;
-			foreach ($cartItemCollection as $cartItem) {
-				if ($product->getId() === $cartItem->getProductId()) {
-					$is_new_item = false;
-					break;
-				}
-			}
-	    if ($is_new_item) {
-		    $cartItem = new timpanyCartItem();
-		    $cartItem->setProduct($product);
-		    $cartItem->setUser(self::$_instance->_user->getGuardUser());
-	    }
-	    $cartItem->setCount($items[$product->getSlug()]);
-	    $cartItem->save();
+    	$this->_order->addItem($product, $count);
     }
   }
   
