@@ -16,4 +16,20 @@ class PlugintimpanyTaxTable extends Doctrine_Table
     {
         return Doctrine_Core::getTable('PlugintimpanyTax');
     }
+
+    /**
+     * return tax by class id and region
+     * @param int $taxClassId
+     * @param string $region
+     * @return Doctine_Collection
+     */
+    public function retrieveByIdAndRegion($taxClassId, $region) {
+      // don't not work ! (Invalid parameter number: number of bound variables does not match number of tokens)
+      // $this->createQuery()->where("tax_class_id = ? AND region = '?'", array($taxClassId, $region))->execute()
+      // TODO should be escaped
+
+      $taxClassId = intval($taxClassId);
+
+      return $this->createQuery()->where("tax_class_id = $taxClassId AND region = '$region'")->execute();
+    }
 }
