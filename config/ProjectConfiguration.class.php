@@ -13,21 +13,24 @@ class ProjectConfiguration extends sfProjectConfiguration
     set_include_path(sfConfig::get('sf_lib_dir') . '/vendor' . PATH_SEPARATOR . get_include_path());
     // for compatibility / remove and enable only the plugins you want
 
-    $this->enablePlugins('sfDoctrinePlugin');
-    $this->enablePlugins('sfJqueryReloadedPlugin');
-    $this->enablePlugins('sfDoctrineGuardPlugin');
-    $this->enablePlugins('sfDoctrineActAsTaggablePlugin');
-    $this->enablePlugins('sfWebBrowserPlugin');
-    $this->enablePlugins('sfFeed2Plugin');
-    $this->enablePlugins('sfSyncContentPlugin');
-    $this->enablePlugins('jmsPaymentPlugin');
-    $this->enablePlugins('timpanyPlugin');
-    $this->enablePlugins('sfTaskExtraPlugin');
+    $this->enablePlugins(array(
+      'sfDoctrinePlugin',
+      'apostrophePlugin',
+      'apostropheBlogPlugin',
+      'sfJqueryReloadedPlugin',
+      'sfSyncContentPlugin',
+      'sfDoctrineActAsTaggablePlugin',
+      'sfTaskExtraPlugin',
+      'sfDoctrineGuardPlugin',
+      'sfWebBrowserPlugin',
+      'sfFeed2Plugin',
+      'timpanyPlugin',
+      'jmsPaymentPlugin'
+    ));
   }
   
   public function setupPlugins()
   {
     $this->pluginConfigurations['timpanyPlugin']->connectTests();
   }
-  
 }
