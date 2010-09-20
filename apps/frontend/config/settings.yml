@@ -35,6 +35,7 @@ all:
     use_database:           true
     i18n: 		            true
     default_culture:        de        # Default user culture
+    default_currency:       "EUR"
 
     rich_text_fck_js_dir:   apostrophePlugin/js/fckeditor
     
