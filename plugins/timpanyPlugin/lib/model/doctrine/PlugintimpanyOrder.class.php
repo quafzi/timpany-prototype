@@ -150,11 +150,10 @@ abstract class PlugintimpanyOrder extends BasetimpanyOrder implements timpanyOrd
   
   /**
    * remove item from cart
-   * @param string $product_slug
-   * 
+   * @param string $key Key of items collection
    * FIXME: not yet implemented
    */
-  public function removeItem(timpanyProductInterface $product)
+  public function removeItem($key)
   {
   	
   }

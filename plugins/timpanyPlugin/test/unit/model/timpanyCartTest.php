@@ -49,14 +49,14 @@ $t->is($guestCart->getNetSum(), 8.4, 'cart net sum is correct');
 $t->is($guestCart->getGrossSum('de'), 8.988, 'cart gross sum is correct');
 
 $t->comment('Remove first cart item from cart.');
-$guestCart->removeItem($product_1);
+$guestCart->removeItem($product_1->getIdentifier());
 $t->is($guestCart->isEmpty(), false, 'cart is not empty');
 $t->is($guestCart->getItemCount(), 1, '1 item in cart');
 $t->is($guestCart->getProductCount(), 1, '1 product in cart');
 $t->is($guestCart->getNetSum(), 0, 'cart net sum is correct');
 
 $t->comment('Remove second cart item from cart.');
-$guestCart->removeItem($product_2);
+$guestCart->removeItem($product_2->getIdentifier());
 $t->is($guestCart->isEmpty(), true, 'cart is empty again');
 $t->is($guestCart->getItemCount(), 0, 'no item in cart');
 $t->is($guestCart->getProductCount(), 0, 'no product in cart');
