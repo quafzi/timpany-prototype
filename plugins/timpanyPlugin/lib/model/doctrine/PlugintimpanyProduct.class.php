@@ -9,6 +9,16 @@
  */
 abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpanyProductInterface
 {
+	/**
+	 * get unique product identifier
+	 * 
+	 * @see plugins/timpanyPlugin/lib/model/timpanyProductInterface::getIdentifier()
+	 */
+	public function getIdentifier()
+	{
+		return 'timpanyProduct_' . $this->getSlug();
+	}
+	
   /**
    * set product record for extending product types
    * @param timpanyProduct $basic_product
@@ -169,5 +179,22 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
         'gross_price'    => $this->getGrossPrice($region),
         'tax_rate'       => $this->getTaxRate($region)
     ));
+  }
+  
+  /**
+   * prepare required values for cart
+   * 
+   * @return array
+   */
+  public function toCartItem()
+  {
+    return array(
+        'name'           => $this->getName(),
+        'article_number' => $this->getArticleNumber(),
+        'description'    => $this->getDescription(),
+        'properties'     => $this->getProperties(),
+        'net_price'      => $this->getNetPrice(),
+        'tax_class_id'   => $this->getTaxClassId()
+    );
   }
 }

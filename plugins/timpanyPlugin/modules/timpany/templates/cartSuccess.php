@@ -20,16 +20,16 @@
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($cart->getItems() as $item): ?>
+        <?php foreach ($cart->getItems() as $key=>$item): ?>
           <tr>
-          	<td class="product-count"><?php echo $item['count'] ?></td>
-          	<td class="product-name"><?php echo link_to($item['product']->getName(), '@timpany_product?category=xxx&product=' . $item['product']->getSlug()) ?></td>
-          	<td class="product-price"><?php echo format_currency(round($item['product']->getNetPrice(), 2), 'EUR') ?></td>
-          	<td class="product-price"><?php echo format_currency(round($item['product']->getGrossPrice(0), 2), 'EUR') ?></td>
-          	<td class="vat-notice">(inkl. <?php echo $item['product']->getTaxPercent(0) ?>% MwSt.)</td>
-          	<td class="item-netsum"><?php echo format_currency(round($item['net_sum'], 2), 'EUR') ?></td>
-          	<td class="item-grosssum"><?php echo format_currency(round($item['gross_sum'], 2), 'EUR') ?></td>
-          	<td class="link"><?php echo link_to(__('remove', null, 'timpanyCart'), '@timpany_cart_remove?product='.$item['product']->getSlug()) ?></td>
+          	<td class="product-count"><?php echo $item->getCount() ?></td>
+          	<td class="product-name"><?php echo $item['product_data']['name']  //link_to($item['product_data']['name'], '@timpany_product?category=xxx&product=' . $item['product']->getSlug()) ?></td>
+          	<td class="product-price"><?php echo format_currency(round($item['product_data']['net_price'], 2), 'EUR') ?></td>
+          	<td class="product-price"><?php echo format_currency(round($item->getGrossPrice('de'), 2), 'EUR') ?></td>
+          	<td class="vat-notice">(inkl. <?php echo $item->getTaxPercent('de') ?>% MwSt.)</td>
+          	<td class="item-netsum"><?php echo format_currency(round($item->getNetSum(), 2), 'EUR') ?></td>
+          	<td class="item-grosssum"><?php echo format_currency(round($item->getGrossSum('de'), 2), 'EUR') ?></td>
+          	<td class="link"><?php echo link_to(__('remove', null, 'timpanyCart'), '@timpany_cart_remove?product='.$key) ?></td>
           </tr>
         <?php endforeach ?>
         <tr class="cart-totals first">

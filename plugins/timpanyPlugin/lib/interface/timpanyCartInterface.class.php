@@ -52,9 +52,9 @@ interface timpanyCartInterface
   
   /**
    * remove item from cart
-   * @param string $product_slug
+   * @param string $key Key of item collection
    */
-  public function removeItem(timpanyProductInterface $product);
+  public function removeItem($key);
   
   /**
    * get count of products

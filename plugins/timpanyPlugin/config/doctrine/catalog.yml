@@ -32,37 +32,10 @@ timpanyProduct:
     tax_class_id:
       type: integer(3)
   relations:
-    CartUsers:
-      class:        sfGuardUser
-      local:        product_id
-      foreign:      sf_guard_user_id
-      refClass:     timpanyCartItem
-      foreignAlias: Products
     TaxClass:
       class:        timpanyTaxClass
       local:        tax_class_id
       foreignAlias: Products
-      
-timpanyCartItem:
-  tableName: timpany_cart_items
-  actAs:
-    Timestampable: ~
-  columns:
-    product_id:
-      type: integer(11)
-    sf_guard_user_id:
-      type: integer(4)
-    count:
-      type: integer(3)
-  relations:
-    Product:
-      class: timpanyProduct
-      foreignAlias: Product
-      local: product_id
-    User:
-      class: sfGuardUser
-      foreignAlias: CartItems
-      local: sf_guard_user_id
       
 timpanyCategory:
   tableName: timpany_category

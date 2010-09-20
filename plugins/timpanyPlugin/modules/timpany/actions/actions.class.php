@@ -22,6 +22,7 @@ class timpanyActions extends sfActions
     $count = $request->getPostParameter('timpany_add_to_cart[count]', 1);
     $this->cart = timpanyCart::getInstance($this->getUser());
     $this->cart->addProduct($product, $count);
+    $this->cart->save();
     $this->getUser()->setFlash('last_added_product', $product->getSlug());
     $this->redirect('@timpany_cart');
   }
@@ -37,8 +38,8 @@ class timpanyActions extends sfActions
   public function executeRemoveCartItem(sfWebRequest $request)
   {
     $this->cart = timpanyCart::getInstance($this->getUser());
-    $product = timpanyProductTable::getInstance()->findOneBySlug($request->getParameter('product'));
-    $this->cart->removeItem($product);
+    $this->cart->removeItem($request->getParameter('product'));
+    $this->cart->save();
     $this->redirect('@timpany_cart');
   }
   

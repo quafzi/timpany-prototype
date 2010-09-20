@@ -1,0 +1,40 @@
+options:
+  type:    INNODB
+  charset: utf8
+  collate: utf8_unicode_ci
+  
+timpanyUserCart:
+  tableName: timpany_user_cart
+  actAs:
+    Timestampable: ~
+  columns:
+    id:
+      type: integer(11)
+      primary: true
+      autoincrement: true
+    sf_guard_user_id:
+      type: integer(4)
+  relations:
+    User:
+      class: sfGuardUser
+      local: sf_guard_user_id
+      foreignType: one
+
+timpanyCartItem:
+  tableName: timpany_cart_item
+  columns:
+    id:
+      type: integer(11)
+      primary: true
+      autoincrement: true
+    cart_id:
+      type: integer(11)
+    count:
+      type: integer(3)
+    product_data:
+      type: text
+  relations:
+    Cart:
+      class: timpanyUserCart
+      foreignAlias: Items
+      local: cart_id

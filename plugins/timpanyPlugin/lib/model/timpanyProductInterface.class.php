@@ -1,6 +1,13 @@
 <?php
 interface timpanyProductInterface
 {
+	/**
+	 * get unique product identifier
+	 * 
+	 * @return string
+	 */
+	public function getIdentifier();
+	
   /**
    * get the name of the product
    *
@@ -83,4 +90,11 @@ interface timpanyProductInterface
    * @return float
    */
   public function getGrossPrice($region);
+  
+  /**
+   * prepare required values for cart
+   * 
+   * @return array
+   */
+  public function toCartItem();
 }

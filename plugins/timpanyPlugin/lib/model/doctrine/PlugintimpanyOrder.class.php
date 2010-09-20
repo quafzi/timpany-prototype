@@ -134,7 +134,7 @@ abstract class PlugintimpanyOrder extends BasetimpanyOrder implements timpanyOrd
    */
   public function getItems()
   {
-  	
+  	return parent::_get('Items');
   }
 
   /**
