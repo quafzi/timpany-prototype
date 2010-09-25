@@ -23,8 +23,8 @@
         <?php foreach ($cart->getItems() as $key=>$item): ?>
           <tr>
           	<td class="product-count"><?php echo $item->getCount() ?></td>
-          	<td class="product-name"><?php echo $item['product_data']['name']  //link_to($item['product_data']['name'], '@timpany_product?category=xxx&product=' . $item['product']->getSlug()) ?></td>
-          	<td class="product-price"><?php echo format_currency(round($item['product_data']['net_price'], 2), 'EUR') ?></td>
+          	<td class="product-name"><?php echo $item->getProductAttribute('name')  //link_to($item['product_data']['name'], '@timpany_product?category=xxx&product=' . $item['product']->getSlug()) ?></td>
+          	<td class="product-price"><?php echo format_currency(round($item->getProductAttribute('net_price'), 2), 'EUR') ?></td>
           	<td class="product-price"><?php echo format_currency(round($item->getGrossPrice('de'), 2), 'EUR') ?></td>
           	<td class="vat-notice">(inkl. <?php echo $item->getTaxPercent('de') ?>% MwSt.)</td>
           	<td class="item-netsum"><?php echo format_currency(round($item->getNetSum(), 2), 'EUR') ?></td>

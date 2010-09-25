@@ -31,6 +31,8 @@ timpanyCartItem:
       type: integer(11)
     count:
       type: integer(3)
+    product_identifier:
+      type: string(100)
     product_data:
       type: text
   relations:

@@ -48,6 +48,9 @@ abstract class PlugintimpanyCartItem extends BasetimpanyCartItem
   public function getProductAttribute($key)
   {
   	$product_data = $this->getProductData();
+  	if (false == is_array($product_data)) {
+  		$product_data = json_decode($product_data, true);
+  	}
   	if (isset($product_data[$key])) {
   		return $product_data[$key];
   	}
@@ -77,6 +80,6 @@ abstract class PlugintimpanyCartItem extends BasetimpanyCartItem
   
   public function getGrossPrice($region='de')
   {
-  	return $this->getProductAttribute('net_price') * (1 + $this->getTaxClass()->getTaxRate($region));
+  	return round($this->getProductAttribute('net_price') * (1 + $this->getTaxClass()->getTaxRate($region)), 2);
   }
 }

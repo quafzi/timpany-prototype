@@ -170,15 +170,7 @@ abstract class PlugintimpanyProduct extends BasetimpanyProduct implements timpan
   
   public function toJson($region='de')
   {
-    return json_encode(array(
-        'name'           => $this->getName(),
-        'article_number' => $this->getArticleNumber(),
-        'description'    => $this->getDescription(),
-        'properties'     => $this->getProperties(),
-        'net_price'      => $this->getNetPrice(),
-        'gross_price'    => $this->getGrossPrice($region),
-        'tax_rate'       => $this->getTaxRate($region)
-    ));
+    return json_encode($this->toCartItem());
   }
   
   /**

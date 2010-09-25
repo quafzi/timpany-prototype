@@ -12,6 +12,11 @@
  */
 abstract class PlugintimpanyUserCart extends BasetimpanyUserCart
 {
+	public function clear()
+	{
+		$this->setItems(new Doctrine_Collection($this->getTable()));
+	}
+	
 	/**
 	 * get count of cart products
 	 * 
@@ -45,8 +50,59 @@ abstract class PlugintimpanyUserCart extends BasetimpanyUserCart
    * @return timpanyCartInterface
    */
   public function addProduct(timpanyProductInterface $product, $count) {
-  	$cartItem = new timpanyCartItem(array('count' => $count, 'product' => $product->toCartItem()));
-  	$this->getItems()->add($cartItem);
+  	foreach ($this->getItems() as $item) {
+  		if ($item->getProductIdentifier() == $product->getIdentifier()) {
+  			$cartItem = $item;
+  			break;
+  		}
+  	}
+  	if (isset($cartItem)) {
+  		$cartItem->increaseCount($count);
+  	} else {
+	  	$cartItem = new timpanyCartItem();
+	  	$cartItem
+	  	  ->setCount($count)
+	  	  ->setProductIdentifier($product->getIdentifier())
+	  	  ->setProductData($product->toJson());
+	  	$this->getItems()->add($cartItem);
+  	}
   	return $this;
+  }
+  
+  /**
+   * get net sum
+   * @return float
+   */
+  public function getNetSum()
+  {
+    $net_sum = 0;
+    foreach ($this->getItems() as $item) {
+      $net_sum += $item->getNetSum();
+    }
+    return $net_sum;
+  }
+  
+  /**
+   * get gross sum
+   * @return float
+   */
+  public function getGrossSum($region='de')
+  {
+    $net_sum = 0;
+    foreach ($this->getItems() as $item) {
+      $net_sum += $item->getGrossSum($region);
+    }
+    return $net_sum;
+  }
+  
+  /**
+   * remove item from cart
+   * @param timpanyProductInterface $product
+   */
+  public function removeItem($product_key)
+  {
+    $items = $this->getItems();
+    unset($items[$product_key]);
+    $this->setItems($items);
   }
 }
