@@ -30,7 +30,7 @@ $t->is($guestCart->isEmpty(), false, 'cart is not empty');
 $t->is($guestCart->getItemCount(), 1, '1 item in cart');
 $t->is($guestCart->getProductCount(), 1, '1 product in cart');
 $t->is($guestCart->getNetSum(), 0.84, 'cart net sum is correct');
-$t->is($guestCart->getGrossSum('de'), 0.8988, 'cart gross sum is correct');
+$t->is($guestCart->getGrossSum('de'), 0.9, 'cart gross sum is correct');
 
 $t->comment('Put second item into cart.');
 $guestCart->addProduct($product_2);
@@ -38,7 +38,7 @@ $t->is($guestCart->isEmpty(), false, 'cart is not empty');
 $t->is($guestCart->getItemCount(), 2, '2 items in cart');
 $t->is($guestCart->getProductCount(), 2, '2 products in cart');
 $t->is($guestCart->getNetSum(), 0.84, 'cart net sum is correct');
-$t->is($guestCart->getGrossSum('de'), 0.8988, 'cart gross sum is correct');
+$t->is($guestCart->getGrossSum('de'), 0.9, 'cart gross sum is correct');
 
 $t->comment('Increase count of first cart item by 9.');
 $guestCart->addProduct($product_1, 9);
@@ -46,7 +46,7 @@ $t->is($guestCart->isEmpty(), false, 'cart is not empty');
 $t->is($guestCart->getItemCount(), 2, '2 items in cart');
 $t->is($guestCart->getProductCount(), 11, '11 products in cart');
 $t->is($guestCart->getNetSum(), 8.4, 'cart net sum is correct');
-$t->is($guestCart->getGrossSum('de'), 8.988, 'cart gross sum is correct');
+$t->is($guestCart->getGrossSum('de'), 9, 'cart gross sum is correct');
 
 $t->comment('Remove first cart item from cart.');
 $guestCart->removeItem($product_1->getIdentifier());
