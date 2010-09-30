@@ -98,9 +98,12 @@ class timpanyActions extends sfActions
   
   public function executeCheckoutFinished(sfWebRequest $request)
   {
-    timpanyCart::getInstance($this->getUser())->clear();
+    $cart = timpanyCart::getInstance($this->getUser());
+    $cart->clear();
+    $cart->save();
+    
   	$this->order = Doctrine::getTable('timpanyOrder')->findOneById(
-  	  $this->getUser()->getFlash('timpany_last_order_id')
+      $this->getUser()->getFlash('timpany_last_order_id')
     );
   }
 }

@@ -14,7 +14,10 @@ abstract class PlugintimpanyUserCart extends BasetimpanyUserCart implements timp
 {
 	public function clear()
 	{
-		$this->setItems(new Doctrine_Collection($this->getTable()));
+		foreach ($this->getItems() as $key=>$item) {
+			$item->delete();
+		}
+		$this->refreshRelated('Items');
 	}
 	
 	/**
