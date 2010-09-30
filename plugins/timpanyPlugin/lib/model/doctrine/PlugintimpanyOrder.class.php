@@ -18,25 +18,17 @@ abstract class PlugintimpanyOrder extends BasetimpanyOrder implements timpanyOrd
 	 * create payment for order
 	 * @return Payment
 	 */
-  public function createPayment()
+  public function createPayment($action)
   {
     sfContext::getInstance()->getLogger()->log('Zahlung wird angelegt', 6);
-  	$paymentData = PaymentDataTable::getInstance()->create(array(
-  		'method_class_name' => 'PaypalPayment',
-  		'subject'			=> 'Order #' . $this->getId()
-  	));
-  	sfContext::getInstance()->getLogger()->log('Zahlungsdaten zusammengestellt', 6);
-    $payment = Payment::create($this->getGrossSum(), 'EUR', new PaypalPaymentData(array(
-      'subject'     => 'Order #' . $this->getId(),
-      'username'    => 'quafzi_1282422503_biz_api1.netextreme.de',
-      'password'    => '1282422508',
-      'signature'   => 'A6xwvNuPnHQVIia8cnUqI2EXX9JWA7AbKPJCGjz0MmzFT7rKMF-ZKyoj' 
-    )));
-    sfContext::getInstance()->getLogger()->log('Zahlung wurde angelegt', 6);
+    $paymentdata = new PaypalPaymentData();
+    $paymentdata->subject = 'Test Payment #' . $this->getId();
+    
+    $paymentdata->cancel_url = $action->generateUrl('timpany_cart', array(), true);
+    $paymentdata->return_url = $action->generateUrl('payment_approve', array(), true);
+    $payment = Payment::create($this->getGrossSum('de'), 'EUR', $paymentdata);
     $payment->setOrder($this);
-    sfContext::getInstance()->getLogger()->log('Zahlung wurde mit Bestellung verknüpft', 6);
     $payment->save();
-    sfContext::getInstance()->getLogger()->log('Zahlung gespeichert', 6);
     return $payment;
   }
   

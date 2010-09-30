@@ -40,6 +40,16 @@ timpany_checkout:
 timpany_checkout_finish:
   url:   /checkout/finish
   param: { module: timpany, action: finishCheckout }
+timpany_checkout_finished:
+  url:   /checkout/finished
+  param: { module: timpany, action: checkoutFinished }
+  
+payment_deposit:
+  url:   /payment/deposit
+  param: { module: payment, action: deposit }
+payment_approve:
+  url:   /payment/approve
+  param: { module: payment, action: approve }
 
 # Must be the LAST rule
 a_page:

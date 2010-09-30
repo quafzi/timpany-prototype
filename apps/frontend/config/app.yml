@@ -1,4 +1,10 @@
 all:
+  jmsPaymentPlugin:
+    # You can overwrite these values in your global app.yml
+    paypal:
+      username:  'quafzi_1282422503_biz_api1.netextreme.de',
+      password:  '1282422508',
+      signature: 'A6xwvNuPnHQVIia8cnUqI2EXX9JWA7AbKPJCGjz0MmzFT7rKMF-ZKyoj' 
   a:
     # If true, there will be a language switcher next to the login/logout button
     i18n_switch: true

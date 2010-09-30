@@ -56,13 +56,29 @@ abstract class PlugintimpanyOrderItem extends BasetimpanyOrderItem
   	return $this->frozen_data;
   }
   
-  public function getGrossSum()
+  public function getGrossSum($region='de')
   {
-  	return $this->getCount() * $this->getGrossPrice();
+  	return $this->getCount() * $this->getGrossPrice($region);
+  }
+  
+  public function getGrossPrice($region='de')
+  {
+    return round($this->getFrozen('net_price') * (1 + $this->getTaxClass()->getTaxRate($region)), 2);
   }
 
   public function getNetSum()
   {
     return $this->getCount() * $this->getNetPrice();
+  }
+  
+  /**
+   * get tax class of this product
+   * 
+   * @return timpanyTaxClass
+   */
+  public function getTaxClass() {
+    return timpanyTaxClassTable::getInstance()->findOneById(
+      $this->getFrozen('tax_class_id')
+    );
   }
 }

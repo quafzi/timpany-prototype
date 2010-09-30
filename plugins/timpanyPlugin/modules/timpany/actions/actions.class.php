@@ -51,14 +51,56 @@ class timpanyActions extends sfActions
   public function executeFinishCheckout(sfWebRequest $request)
   {
     $cart = timpanyCart::getInstance($this->getUser());
-    if (0 < $cart->getItemCount()) {
-      $this->order = timpanyOrderTable::getInstance()->createOrder($cart);
-      /* payment requires a persistant order */
-      $this->order->save();
-      $this->order->createPayment();
-      $cart->clear();
-    } else {
-      $this->redirect('@timpany_cart');
+    if (0 == $cart->getItemCount()) {
+    	$this->redirect('@timpany_cart');
     }
+    $this->order = timpanyOrderTable::getInstance()->createOrder($cart);
+    /* payment requires a persistant order */
+    $this->order->save();
+    $payment = $this->order->createPayment($this);
+      
+    try
+    {
+      if ($payment->hasOpenTransaction())
+      {
+        $transaction = $payment->getOpenTransaction();
+        if (!$transaction instanceof FinancialApproveTransaction)
+          throw new LogicException('This payment has another pending transaction.');
+          
+        $payment->performTransaction($transaction);
+      }
+      else
+      {
+        $payment->approve();
+      }
+    }
+    catch (jmsPaymentException $e)
+    {
+      // for now there is only one action, so we do not need additional
+      // processing here
+      if ($e instanceof jmsPaymentUserActionRequiredException
+          && $e->getAction() instanceof jmsPaymentUserActionVisitURL)
+      {
+        $this->amount = $payment->getOpenTransaction()->requested_amount;
+        $this->currency = $payment->currency;
+        $this->url = $e->getAction()->getUrl();
+        
+        $this->redirect($this->url);
+      }
+      
+      $this->error = $e->getMessage();
+      
+      return 'Error';
+    }
+    
+    $this->getUser()->setFlash('notice', 'The payment was approved successfully.');
+  }
+  
+  public function executeCheckoutFinished(sfWebRequest $request)
+  {
+    timpanyCart::getInstance($this->getUser())->clear();
+  	$this->order = Doctrine::getTable('timpanyOrder')->findOneById(
+  	  $this->getUser()->getFlash('timpany_last_order_id')
+    );
   }
 }

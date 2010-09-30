@@ -17,16 +17,19 @@ class PlugintimpanyOrderTable extends Doctrine_Table
         return Doctrine_Core::getTable('PlugintimpanyOrder');
     }
     
-    public function createOrder(timpanyCart $cart)
+    public function createOrder(timpanyCartInterface $cart)
     {
         $order = self::create();
         $order->setNetSum($cart->getNetSum());
         foreach ($cart->getItems() as $item)
         {
+        	  $frozen_data = $item->getProductData();
+        	  if (is_array($frozen_data)) {
+        	  	$frozen_data = json_encode($frozen_data);
+        	  }
             $orderItem = timpanyOrderItemTable::getInstance()->create(array(
-                'count'       => $item['count'],
-                'frozen_data' => $item['product']->toJson(),
-                'product_id'  => $item['product']->getId()
+                'count'       => $item->getCount(),
+                'frozen_data' => $frozen_data,
             ));
             
             $order->getItems()->add($orderItem);

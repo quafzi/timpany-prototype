@@ -10,7 +10,7 @@
  * @author     ##NAME## <##EMAIL##>
  * @version    SVN: $Id: Builder.php 7490 2010-03-29 19:53:27Z jwage $
  */
-abstract class PlugintimpanyUserCart extends BasetimpanyUserCart
+abstract class PlugintimpanyUserCart extends BasetimpanyUserCart implements timpanyCartInterface
 {
 	public function clear()
 	{
@@ -49,7 +49,7 @@ abstract class PlugintimpanyUserCart extends BasetimpanyUserCart
    * 
    * @return timpanyCartInterface
    */
-  public function addProduct(timpanyProductInterface $product, $count) {
+  public function addProduct(timpanyProductInterface $product, $count=1) {
   	foreach ($this->getItems() as $item) {
   		if ($item->getProductIdentifier() == $product->getIdentifier()) {
   			$cartItem = $item;
@@ -104,5 +104,26 @@ abstract class PlugintimpanyUserCart extends BasetimpanyUserCart
     $items = $this->getItems();
     unset($items[$product_key]);
     $this->setItems($items);
+  }
+  
+  public function setItems($items)
+  {
+  	parent::_set('Items', $items);
+  }
+  
+  public function getCountOfProduct(timpanyProductInterface $product)
+  {
+    $count = 0;
+    foreach ($this->getItems() as $item) {
+    	if ($item->getProductIdentifier() == $product->getIdentifier()) {
+    		return $item->getCount();
+    	}
+    }
+    return 0;
+  }
+  
+  public function getItems()
+  {
+  	return parent::_get('Items');
   }
 }
