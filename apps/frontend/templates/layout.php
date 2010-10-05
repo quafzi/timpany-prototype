@@ -1,15 +1,22 @@
-<?php use_helper('I18N', 'Timpany') ?>
+<?php
+  slot('a-search', '');
+?>
+<?php // This is a copy of apostrophePlugin/modules/a/templates/layout.php ?>
 <?php // It also makes a fine site-wide layout, which gives you global slots on non-page templates ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<?php use_helper('a') ?>
+<?php use_helper('I18N', 'Timpany') ?>
+	<?php // If this page is an admin page we don't want to present normal navigation relative to it. ?>
+	<?php $page = aTools::getCurrentNonAdminPage() ?>
 <head>
 	<?php include_http_metas() ?>
 	<?php include_metas() ?>
 	<?php include_title() ?>
 	<?php // 1.3 and up don't do this automatically (no common filter) ?>
-    <?php include_stylesheets() ?>
+  <?php include_stylesheets() ?>
 	<?php include_javascripts() ?>
-	<link rel="icon" href="<?php echo $sf_request->getRelativeUrlRoot() ?>/timpanyPlugin/images/timpany.ico" type="image/x-icon" />
+	<link rel="shortcut icon" href="/favicon.ico" />
 
 	<!--[if lt IE 7]>
 	<script type="text/javascript" charset="utf-8">
@@ -30,23 +37,63 @@
 
   <?php // Everyone gets this now, but internally it determines which controls you should ?>
   <?php // actually see ?>
+  
+  <?php include_partial('a/globalTools') ?>
+
 	<div id="a-wrapper">
-      <div class='header'>
-        <div id='logo'><?php echo link_to('Timpany', '@timpany_index', array('title' => __('go to home page'))) ?></div>
-        <div id='slogan'>webshop of the future</div>
-        <?php include_component('timpany', 'userInfo') ?>
-        <?php include_component('timpany', 'cartInfo') ?>
+    <?php // Note that just about everything can be suppressed or replaced by setting a ?>
+    <?php // Symfony slot. Use them - don't write zillions of layouts or do layout stuff ?>
+    <?php // in the template (except by setting a slot). To suppress one of these slots ?>
+    <?php // completely in one line of code, just do: slot('a-whichever', '') ?>
+      
+    <?php if (has_slot('a-search')): ?>
+      <?php include_slot('a-search') ?>
+    <?php else: ?>
+      <?php include_partial('a/search') ?>
+    <?php endif ?>
+    
+    <?php if (has_slot('a-header')): ?>
+      <?php include_slot('a-header') ?>
+    <?php else: ?>
+      <div id="a-header">
+        <?php if (has_slot('a-logo')): ?>
+          <?php include_slot('a-logo') ?>
+        <?php else: ?>
+          <?php //a_slot("logo", 'aButton', array("global" => true, "width" => 360, "flexHeight" => true, "resizeType" => "s", "link" => "/", "defaultImage" => "/apostrophePlugin/images/cmstest-sample-logo.png")) ?>
+          <div id="logo"><?php echo link_to('Timpany', '@timpany_index', array('title' => __('go to home page'))) ?></div>
+          <div id="slogan">webshop of the future</div>
+          <?php include_component('timpany', 'cartInfo') ?>
+          <?php include_component('timpany', 'userInfo') ?>
+        <?php endif ?>
       </div>
-      <?php // Note that just about everything can be suppressed or replaced by setting a ?>
-      <?php // Symfony slot. Use them - don't write zillions of layouts or do layout stuff ?>
-      <?php // in the template (except by setting a slot). To suppress one of these slots ?>
-      <?php // completely in one line of code, just do: slot('a-whichever', '') ?>
-      <div id="a-content">
-        <?php echo $sf_data->getRaw('sf_content') ?>
-      </div>
-      <div class='footer'>
-        This is a timpany demo shop.
-      </div>
+    <?php endif ?>
+
+    <?php // Perhaps we want some of this on non-CMS pages like 'reorganize' but we can't ?>
+    <?php // spew PHP warnings, so fix that before you take away this if ?>
+     <?php if (has_slot('a-tabs')): ?>
+       <?php include_slot('a-tabs') ?>
+     <?php else: ?>
+ 			<?php include_component('aNavigation', 'tabs', array('root' => '/', 'active' => $page['slug'], 'name' => 'main', 'draggable' => true, 'dragIcon' => false)) # Top Level Navigation ?>
+ 		<?php endif ?>
+
+ 		<?php if (has_slot('a-breadcrumb')): ?>
+ 				<?php include_slot('a-breadcrumb') ?>
+ 		<?php elseif ($page): ?>
+ 				<?php include_component('aNavigation', 'breadcrumb', array('root' => '/', 'active' => $page['slug'], 'name' => 'component', 'separator' => ' /')) # Top Level Navigation ?>
+ 		<?php endif ?>
+
+     <?php if (has_slot('a-subnav')): ?>
+       <?php include_slot('a-subnav') ?>
+     <?php elseif ($page): ?>
+ 		  <?php include_component('a', 'subnav', array('page' => $page)) # Subnavigation ?>
+ 		<?php endif ?>
+
+		<div id="a-content">
+			<?php echo $sf_data->getRaw('sf_content') ?>
+		</div>
+	
+	  <?php include_partial('a/footer') ?>
 	</div>
+
 </body>
 </html>
