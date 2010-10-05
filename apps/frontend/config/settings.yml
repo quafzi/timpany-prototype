@@ -101,6 +101,8 @@ all:
     secure_module:          a               # To be called when a user doesn't have
     secure_action:          secure          # The credentials required for an action
     
+    standard_helpers:       [I18N, Partial, Cache, Timpany]
+    
     i18n:                   true
     default_culture:        en              # Default user culture
 #

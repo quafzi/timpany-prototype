@@ -51,11 +51,12 @@ a:focus, a:hover
 	text-decoration: none;
 }
 
-.header
+.header, #a-header
 {
 	height: 60px;
 	background: #faf4e0;
 	padding: 0 10px;
+	width:960px !important;
 }
 
 .footer
@@ -77,18 +78,14 @@ a:focus, a:hover
 	top:35px;
 }
 
-.header dl.cart_info {
-    margin-left:800px;
-    position:relative;
-    top:-30px;
-    width:125px;
+#a-header dl.cart_info {
+  width:125px;
+  float:right;
 }
 
-.header .user_info {
-    margin-left:400px;
-    position:relative;
-    top:-36px;
-    width:300px;
+#a-header .user_info {
+  margin-left:200px;
+  float:left;
 }
 
 #sfWebDebugBar

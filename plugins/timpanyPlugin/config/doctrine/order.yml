@@ -42,6 +42,8 @@ timpanyOrder:
       class: sfGuardUser
       local: sf_guard_user_id
       foreignType: one
+      # FIXME: How to handle this when user gets deleted? (CASCADE is bad!)
+      onDelete: SET NULL
 
 timpanyOrderItem:
   tableName: timpany_order_item

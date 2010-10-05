@@ -8,7 +8,6 @@ base
 web/sf
 web/gallery/*
 web/upload*
-lib/model/doctrine/timpanyPlugin
 .buildpath
 .project
 .settings

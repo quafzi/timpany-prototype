@@ -1,0 +1,29 @@
+# shop pages
+timpany_index:
+  url:   /
+  param: { module: timpany, action: index }
+timpany_category:
+  url:   /shop/:category
+  param: { module: timpany, action: index }
+  requirements: { category: .* }
+timpany_product:
+  url:   /shop/:category/:product
+  param: { module: timpany, action: showProduct }
+  requirements: { category: .*, product: .* }
+timpany_cart_add:
+  url:   /cart/add/:product
+  param: { module: timpany, action: addToCart }
+  requirements: { product: .* }
+timpany_cart_remove:
+  url:   /cart/remove/:product
+  param: { module: timpany, action: removeCartItem }
+  requirements: { product: .* }
+timpany_cart:
+  url:   /cart
+  param: { module: timpany, action: cart }
+timpany_checkout:
+  url:   /checkout
+  param: { module: timpany, action: checkout }
+timpany_checkout_finish:
+  url:   /checkout/finish
+  param: { module: timpany, action: finishCheckout }
